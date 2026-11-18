@@ -11,10 +11,7 @@
       "source": "functions",
       "codebase": "default",
       "runtime": "nodejs22",
-      "predeploy": [
-        "npm --prefix .. run build -w @walkin/shared",
-        "npm --prefix .. run build -w @walkin/functions"
-      ]
+      "predeploy": []
     }
   ],
   "emulators": {
