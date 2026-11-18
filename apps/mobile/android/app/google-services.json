@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "987378429822",
+    "project_id": "walkin-123",
+    "storage_bucket": "walkin-123.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987378429822:android:df6746e4e6f88689188d2f",
+        "android_client_info": {
+          "package_name": "com.example.walkin_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTiIk5Nf2pYsZKwtoh8pp4rCdYoIiAMLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
