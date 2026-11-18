@@ -1,0 +1,39 @@
+# Dependencies and builds
+node_modules/
+dist/
+.next/
+out/
+build/
+coverage/
+
+# Environment and secrets
+.env
+.env.*.local
+!.env.example
+apps/**/.env
+apps/**/.env.local
+functions/.env
+functions/.env.local
+
+# Firebase / emulator artifacts
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+pubsub-debug.log
+storage-debug.log
+firebase-export-*/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+apps/mobile/build/
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
