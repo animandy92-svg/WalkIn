@@ -12,8 +12,8 @@
       "codebase": "default",
       "runtime": "nodejs22",
       "predeploy": [
-        "npm run build -w @walkin/shared",
-        "npm run build -w @walkin/functions"
+        "npm --prefix .. run build -w @walkin/shared",
+        "npm --prefix .. run build -w @walkin/functions"
       ]
     }
   ],
