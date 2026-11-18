@@ -101,7 +101,7 @@ Milestones 0–3 are in place:
   services, hours/availability, staff, and profile/policy settings editors
 - Flutter source scaffold
 
-Milestones 4–6 (Flutter screens, notifications, and launch hardening) follow the plan in
+Milestones 4–5 (Flutter app, notifications, and launch hardening) follow the plan in
 `C:\Users\anima\.opencode\plan\walkin-implementation-plan.md`.
 
 ## Notes
