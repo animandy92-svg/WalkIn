@@ -1,14 +1,32 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import type { ProviderSummaryView } from '@walkin/shared';
+import { useEffect, useMemo, useState } from 'react';
+import type { BusinessVertical, ProviderSummaryView } from '@walkin/shared';
 import { useAuth } from '@/components/auth-provider';
 import { api } from '@/lib/api';
+
+const VERTICAL_FILTERS: Array<{ key: 'all' | BusinessVertical; label: string; icon: string }> = [
+  { key: 'all', label: 'All Services', icon: '✨' },
+  { key: 'barbershop', label: 'Barbershops', icon: '✂️' },
+  { key: 'salon', label: 'Salons & Spas', icon: '💇' },
+  { key: 'laundry', label: 'Laundry & Dry Clean', icon: '🧺' },
+  { key: 'printing', label: 'Printing & Copies', icon: '🖨️' },
+  { key: 'general', label: 'Other', icon: '🏢' },
+];
+
+const VERTICAL_INFO: Record<BusinessVertical, { label: string; icon: string }> = {
+  barbershop: { label: 'Barbershop', icon: '✂️' },
+  salon: { label: 'Salon', icon: '💇' },
+  laundry: { label: 'Laundry', icon: '🧺' },
+  printing: { label: 'Print Shop', icon: '🖨️' },
+  general: { label: 'Service', icon: '🏢' },
+};
 
 export default function HomePage() {
   const { user, loading: authLoading } = useAuth();
   const [providers, setProviders] = useState<ProviderSummaryView[]>([]);
+  const [selectedVertical, setSelectedVertical] = useState<'all' | BusinessVertical>('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -35,12 +53,32 @@ export default function HomePage() {
     };
   }, [user]);
 
+  const filteredProviders = useMemo(() => {
+    if (selectedVertical === 'all') return providers;
+    return providers.filter((p) => (p.vertical ?? 'general') === selectedVertical);
+  }, [providers, selectedVertical]);
+
   return (
     <>
-      <h1 className="page-title">Book a local service</h1>
+      <h1 className="page-title">Book before you arrive</h1>
       <p className="muted">
-        Find a provider, choose a service, and reserve a time that works for you.
+        Skip the line. Reserve barbers, salons, laundry drop-offs, and print jobs ahead of time.
       </p>
+
+      {user ? (
+        <div className="filter-pills">
+          {VERTICAL_FILTERS.map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              className={`filter-pill ${selectedVertical === item.key ? 'active' : ''}`}
+              onClick={() => setSelectedVertical(item.key)}
+            >
+              <span>{item.icon}</span> {item.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {authLoading || loading ? <p>Loading providers…</p> : null}
       {error ? <p className="error">{error}</p> : null}
@@ -55,20 +93,31 @@ export default function HomePage() {
         </div>
       ) : null}
 
-      {providers.length > 0 ? (
+      {filteredProviders.length > 0 ? (
         <div className="card-grid">
-          {providers.map((provider) => (
-            <Link key={provider.id} className="card" href={`/providers/${provider.slug}`}>
-              <h3>{provider.name}</h3>
-              <p className="muted">{provider.description}</p>
-              {provider.city ? <p className="muted">{provider.city}</p> : null}
-            </Link>
-          ))}
+          {filteredProviders.map((provider) => {
+            const vertical = provider.vertical ?? 'general';
+            const info = VERTICAL_INFO[vertical];
+            return (
+              <Link key={provider.id} className="card" href={`/providers/${provider.slug}`}>
+                <div className="vertical-badge">
+                  {info.icon} {info.label}
+                </div>
+                <h3>{provider.name}</h3>
+                <p className="muted">{provider.description}</p>
+                {provider.city ? <p className="muted">📍 {provider.city}</p> : null}
+              </Link>
+            );
+          })}
         </div>
       ) : null}
 
       {!authLoading && user && !loading && providers.length === 0 && !error ? (
         <p className="muted">No providers are published yet.</p>
+      ) : null}
+
+      {!authLoading && user && !loading && providers.length > 0 && filteredProviders.length === 0 ? (
+        <p className="muted">No providers found in this category.</p>
       ) : null}
     </>
   );

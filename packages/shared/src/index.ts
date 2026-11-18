@@ -4,6 +4,8 @@ import * as schemas from './schemas.js';
 export * from './schemas.js';
 
 export type ConfirmationMode = z.infer<typeof schemas.confirmationModeSchema>;
+export type BusinessVertical = z.infer<typeof schemas.businessVerticalSchema>;
+export type ServiceType = z.infer<typeof schemas.serviceTypeSchema>;
 export type BookingStatus = z.infer<typeof schemas.bookingStatusSchema>;
 export type ProviderStatus = z.infer<typeof schemas.providerStatusSchema>;
 export type StaffRole = z.infer<typeof schemas.staffRoleSchema>;
@@ -16,6 +18,14 @@ export type Money = z.infer<typeof schemas.moneySchema>;
 export type PriceSnapshot = z.infer<typeof schemas.priceSnapshotSchema>;
 export type Address = z.infer<typeof schemas.addressSchema>;
 export type BookingPolicy = z.infer<typeof schemas.bookingPolicySchema>;
+
+export type PrintColorMode = z.infer<typeof schemas.printColorModeSchema>;
+export type PrintPaperSize = z.infer<typeof schemas.printPaperSizeSchema>;
+export type PrintFinish = z.infer<typeof schemas.printFinishSchema>;
+export type PrintJobSpecs = z.infer<typeof schemas.printJobSpecsSchema>;
+export type LaundryServiceCategory = z.infer<typeof schemas.laundryServiceCategorySchema>;
+export type LaundryJobSpecs = z.infer<typeof schemas.laundryJobSpecsSchema>;
+export type BookingVerticalData = z.infer<typeof schemas.bookingVerticalDataSchema>;
 
 export type ProviderSummaryView = z.infer<typeof schemas.providerSummaryViewSchema>;
 export type ProviderConfigView = z.infer<typeof schemas.providerConfigViewSchema>;

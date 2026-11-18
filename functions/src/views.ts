@@ -46,6 +46,7 @@ export function bookingToView(doc: BookingDoc): BookingView {
     holdExpiresAt: iso(doc.holdExpiresAt),
     customerNote: doc.customerNote,
     source: doc.source,
+    verticalData: doc.verticalData,
     createdAt: doc.createdAt.toDate().toISOString(),
     updatedAt: doc.updatedAt.toDate().toISOString(),
   };
@@ -60,6 +61,7 @@ export function providerToSummary(doc: ProviderDoc): ProviderSummaryView {
     logoUrl: doc.logoUrl,
     timeZone: doc.timeZone,
     city: doc.address?.city,
+    vertical: doc.vertical ?? 'general',
   };
 }
 
@@ -75,6 +77,7 @@ export function providerToConfig(doc: ProviderDoc): ProviderConfigView {
     timeZone: doc.timeZone,
     status: doc.status,
     bookingPolicy: doc.bookingPolicy,
+    vertical: doc.vertical ?? 'general',
   };
 }
 
@@ -91,6 +94,7 @@ export function serviceToView(doc: ServiceDoc): ServiceView {
     staffIds: doc.staffIds,
     active: doc.active,
     imageUrl: doc.imageUrl,
+    serviceType: doc.serviceType ?? 'appointment',
   };
 }
 

@@ -5,10 +5,13 @@ import type {
   BookingPolicy,
   BookingSource,
   BookingStatus,
+  BookingVerticalData,
+  BusinessVertical,
   CapacityScope,
   ConfirmationMode,
   Money,
   ProviderStatus,
+  ServiceType,
   StaffRole,
 } from '@walkin/shared';
 
@@ -23,6 +26,7 @@ export interface ProviderDoc {
   timeZone: string;
   status: ProviderStatus;
   bookingPolicy: BookingPolicy;
+  vertical?: BusinessVertical;
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }
@@ -41,6 +45,7 @@ export interface ServiceDoc {
   bufferAfterMinutes: number;
   active: boolean;
   imageUrl?: string;
+  serviceType?: ServiceType;
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }
@@ -81,6 +86,7 @@ export interface BookingDoc {
   holdExpiresAt: Timestamp | null;
   customerNote?: string;
   source: BookingSource;
+  verticalData?: BookingVerticalData;
   reminder24hSent?: boolean;
   reminder1hSent?: boolean;
   cancelledAt?: Timestamp | null;

@@ -14,7 +14,7 @@ const child = spawn(firebaseBin, [
   '--config',
   'firebase.test.json',
   '--only',
-  'auth,firestore,functions',
+  'auth,firestore,functions,storage',
 ], {
   stdio: 'inherit',
   shell: process.platform === 'win32',

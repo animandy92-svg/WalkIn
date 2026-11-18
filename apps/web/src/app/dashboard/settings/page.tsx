@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { ProviderConfigView, ProviderStatus } from '@walkin/shared';
+import type { BusinessVertical, ProviderConfigView, ProviderStatus } from '@walkin/shared';
 import { useDashboardData } from '@/components/dashboard-data';
 import { useProviderAccess } from '@/components/provider-access';
 import { api } from '@/lib/api';
@@ -12,6 +12,7 @@ type SettingsForm = {
   description: string;
   timeZone: string;
   logoUrl: string;
+  vertical: BusinessVertical;
   status: ProviderStatus;
   line1: string;
   line2: string;
@@ -33,6 +34,7 @@ function emptyForm(): SettingsForm {
     description: '',
     timeZone: typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : 'UTC',
     logoUrl: '',
+    vertical: 'general',
     status: 'draft',
     line1: '',
     line2: '',
@@ -55,6 +57,7 @@ function fromProvider(provider: ProviderConfigView): SettingsForm {
     description: provider.description,
     timeZone: provider.timeZone,
     logoUrl: provider.logoUrl ?? '',
+    vertical: provider.vertical ?? 'general',
     status: provider.status,
     line1: provider.address?.line1 ?? '',
     line2: provider.address?.line2 ?? '',
@@ -103,6 +106,7 @@ export default function DashboardSettingsPage() {
         description: form.description,
         timeZone: form.timeZone.trim(),
         status: form.status,
+        vertical: form.vertical,
         ...(form.logoUrl.trim() ? { logoUrl: form.logoUrl.trim() } : {}),
         ...(addressProvided ? {
           address: {
@@ -164,6 +168,16 @@ export default function DashboardSettingsPage() {
               <select id="settings-status" value={form.status} onChange={(e) => update('status', e.target.value as ProviderStatus)}>
                 <option value="draft">Draft (hidden from customers)</option>
                 <option value="published">Published</option>
+              </select>
+            </div>
+            <div className="field">
+              <label className="label" htmlFor="settings-vertical">Business Type</label>
+              <select id="settings-vertical" value={form.vertical} onChange={(e) => update('vertical', e.target.value as BusinessVertical)}>
+                <option value="barbershop">✂️ Barbershop</option>
+                <option value="salon">💇 Salon / Spa</option>
+                <option value="laundry">🧺 Laundry & Dry Cleaning</option>
+                <option value="printing">🖨️ Printing & Copy Shop</option>
+                <option value="general">🏢 General Walk-in Service</option>
               </select>
             </div>
           </div>

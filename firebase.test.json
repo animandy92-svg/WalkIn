@@ -10,15 +10,27 @@
       "runtime": "nodejs22"
     }
   ],
+  "storage": {
+    "rules": "storage.rules"
+  },
   "emulators": {
     "auth": {
-      "port": 9099
+      "port": 9198
     },
     "functions": {
-      "port": 5001
+      "port": 5101
     },
     "firestore": {
-      "port": 8080
+      "port": 8180
+    },
+    "storage": {
+      "port": 9399
+    },
+    "hub": {
+      "port": 4410
+    },
+    "logging": {
+      "port": 4510
     },
     "ui": {
       "enabled": false

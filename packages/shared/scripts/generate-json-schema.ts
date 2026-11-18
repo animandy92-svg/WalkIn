@@ -9,6 +9,9 @@ const outputPath = resolve(currentDir, '../schema/walkin.schema.json');
 
 const registry: Record<string, unknown> = {
   BookingView: schemas.bookingViewSchema,
+  PrintJobSpecs: schemas.printJobSpecsSchema,
+  LaundryJobSpecs: schemas.laundryJobSpecsSchema,
+  BookingVerticalData: schemas.bookingVerticalDataSchema,
   ProviderConfigView: schemas.providerConfigViewSchema,
   ServiceConfigView: schemas.serviceConfigViewSchema,
   StaffConfigView: schemas.staffConfigViewSchema,

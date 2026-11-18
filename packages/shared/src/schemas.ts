@@ -6,9 +6,24 @@ export const localTime = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Expected
 export const localDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Expected YYYY-MM-DD');
 
 export const confirmationModeSchema = z.enum(['instant', 'approval']);
+export const businessVerticalSchema = z.enum([
+  'barbershop',
+  'salon',
+  'laundry',
+  'printing',
+  'general',
+]);
+export const serviceTypeSchema = z.enum([
+  'appointment',
+  'drop_off',
+  'print_job',
+  'queue_ticket',
+]);
 export const bookingStatusSchema = z.enum([
   'pending',
   'confirmed',
+  'in_progress',
+  'ready_for_pickup',
   'rejected',
   'expired',
   'cancelled',
@@ -62,6 +77,37 @@ export const bookingPolicySchema = z.object({
   defaultConcurrentSlots: z.number().int().positive(),
 });
 
+export const printColorModeSchema = z.enum(['black_and_white', 'color']);
+export const printPaperSizeSchema = z.enum(['A4', 'A3', 'Letter', 'Legal']);
+export const printFinishSchema = z.enum(['none', 'stapled', 'spiral_bound', 'laminated']);
+
+export const printJobSpecsSchema = z.object({
+  fileUrls: z.array(z.string().url()).min(1),
+  copies: z.number().int().positive().default(1),
+  colorMode: printColorModeSchema.default('black_and_white'),
+  paperSize: printPaperSizeSchema.default('A4'),
+  finish: printFinishSchema.default('none'),
+  notes: z.string().max(500).optional(),
+});
+
+export const laundryServiceCategorySchema = z.enum([
+  'wash_and_fold',
+  'dry_cleaning',
+  'ironing_only',
+]);
+
+export const laundryJobSpecsSchema = z.object({
+  serviceCategory: laundryServiceCategorySchema.default('wash_and_fold'),
+  estimatedWeightKg: z.number().positive().optional(),
+  bagCount: z.number().int().positive().optional(),
+  specialInstructions: z.string().max(500).optional(),
+});
+
+export const bookingVerticalDataSchema = z.object({
+  printJob: printJobSpecsSchema.optional(),
+  laundryJob: laundryJobSpecsSchema.optional(),
+});
+
 // ---------- Client-facing views ----------
 
 export const providerSummaryViewSchema = z.object({
@@ -72,6 +118,7 @@ export const providerSummaryViewSchema = z.object({
   logoUrl: z.string().url().optional(),
   timeZone: z.string().min(1),
   city: z.string().optional(),
+  vertical: businessVerticalSchema.default('general'),
 });
 
 export const serviceViewSchema = z.object({
@@ -86,6 +133,7 @@ export const serviceViewSchema = z.object({
   staffIds: z.array(z.string()),
   active: z.boolean(),
   imageUrl: z.string().url().optional(),
+  serviceType: serviceTypeSchema.default('appointment'),
 });
 
 export const staffViewSchema = z.object({
@@ -122,6 +170,7 @@ export const providerConfigViewSchema = z.object({
   timeZone: z.string().min(1),
   status: providerStatusSchema,
   bookingPolicy: bookingPolicySchema,
+  vertical: businessVerticalSchema.default('general'),
 });
 
 /** Service configuration with the buffer fields used by the dashboard editor. */
@@ -160,6 +209,7 @@ export const bookingViewSchema = z.object({
   holdExpiresAt: isoDateTime.nullable(),
   customerNote: z.string().optional(),
   source: bookingSourceSchema,
+  verticalData: bookingVerticalDataSchema.optional(),
   createdAt: isoDateTime,
   updatedAt: isoDateTime,
 });
@@ -188,6 +238,7 @@ export const createBookingRequestSchema = z.object({
   idempotencyKey: z.string().min(8).max(128),
   note: z.string().max(1000).optional(),
   source: bookingSourceSchema,
+  verticalData: bookingVerticalDataSchema.optional(),
 });
 
 export const createBookingResponseSchema = z.object({
@@ -232,6 +283,7 @@ export const saveProviderRequestSchema = z.object({
   address: addressSchema.optional(),
   status: providerStatusSchema,
   bookingPolicy: bookingPolicySchema,
+  vertical: businessVerticalSchema.optional(),
 });
 
 export const saveServiceRequestSchema = z.object({
@@ -248,6 +300,7 @@ export const saveServiceRequestSchema = z.object({
   bufferAfterMinutes: z.number().int().nonnegative().default(0),
   active: z.boolean().default(true),
   imageUrl: z.string().url().optional(),
+  serviceType: serviceTypeSchema.optional(),
 });
 
 export const saveStaffRequestSchema = z.object({

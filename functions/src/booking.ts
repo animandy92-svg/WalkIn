@@ -5,7 +5,7 @@ import {
   type QueryDocumentSnapshot,
   type Transaction,
 } from 'firebase-admin/firestore';
-import type { BookingSource } from '@walkin/shared';
+import type { BookingSource, BookingVerticalData } from '@walkin/shared';
 import { writeAuditLogInTransaction } from './audit.js';
 import { ANY_STAFF_KEY, buildSlotCandidates, type SlotCandidate } from './availability.js';
 import { DomainError } from './errors.js';
@@ -29,6 +29,7 @@ export interface CreateBookingInput {
   startUtc: string;
   note?: string;
   source: BookingSource;
+  verticalData?: BookingVerticalData;
 }
 
 export interface PreparedBooking {
@@ -38,6 +39,7 @@ export interface PreparedBooking {
   customerId: string;
   note?: string;
   source: BookingSource;
+  verticalData?: BookingVerticalData;
   idempotencyKey: string;
 }
 
@@ -149,6 +151,7 @@ export async function prepareBooking(
     customerId: input.customerId,
     note: input.note,
     source: input.source,
+    verticalData: input.verticalData,
     idempotencyKey: input.idempotencyKey,
   };
 }
@@ -219,6 +222,7 @@ export async function createBookingInTransaction(
         : null,
     customerNote: prepared.note,
     source: prepared.source,
+    verticalData: prepared.verticalData,
     timeline: [{ status: 'created', at: now, actor: prepared.customerId }],
     idempotencyKey: prepared.idempotencyKey,
     createdAt: now,

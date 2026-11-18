@@ -44,6 +44,8 @@
           "enum": [
             "pending",
             "confirmed",
+            "in_progress",
+            "ready_for_pickup",
             "rejected",
             "expired",
             "cancelled",
@@ -106,6 +108,93 @@
             "mobile"
           ]
         },
+        "verticalData": {
+          "type": "object",
+          "properties": {
+            "printJob": {
+              "type": "object",
+              "properties": {
+                "fileUrls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "minItems": 1
+                },
+                "copies": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "default": 1
+                },
+                "colorMode": {
+                  "type": "string",
+                  "enum": [
+                    "black_and_white",
+                    "color"
+                  ],
+                  "default": "black_and_white"
+                },
+                "paperSize": {
+                  "type": "string",
+                  "enum": [
+                    "A4",
+                    "A3",
+                    "Letter",
+                    "Legal"
+                  ],
+                  "default": "A4"
+                },
+                "finish": {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "stapled",
+                    "spiral_bound",
+                    "laminated"
+                  ],
+                  "default": "none"
+                },
+                "notes": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "fileUrls"
+              ],
+              "additionalProperties": false
+            },
+            "laundryJob": {
+              "type": "object",
+              "properties": {
+                "serviceCategory": {
+                  "type": "string",
+                  "enum": [
+                    "wash_and_fold",
+                    "dry_cleaning",
+                    "ironing_only"
+                  ],
+                  "default": "wash_and_fold"
+                },
+                "estimatedWeightKg": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "bagCount": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                "specialInstructions": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
         "createdAt": {
           "$ref": "#/definitions/BookingView/properties/startUtc"
         },
@@ -130,6 +219,174 @@
         "createdAt",
         "updatedAt"
       ],
+      "additionalProperties": false
+    },
+    "PrintJobSpecs": {
+      "type": "object",
+      "properties": {
+        "fileUrls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "minItems": 1
+        },
+        "copies": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "default": 1
+        },
+        "colorMode": {
+          "type": "string",
+          "enum": [
+            "black_and_white",
+            "color"
+          ],
+          "default": "black_and_white"
+        },
+        "paperSize": {
+          "type": "string",
+          "enum": [
+            "A4",
+            "A3",
+            "Letter",
+            "Legal"
+          ],
+          "default": "A4"
+        },
+        "finish": {
+          "type": "string",
+          "enum": [
+            "none",
+            "stapled",
+            "spiral_bound",
+            "laminated"
+          ],
+          "default": "none"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "required": [
+        "fileUrls"
+      ],
+      "additionalProperties": false
+    },
+    "LaundryJobSpecs": {
+      "type": "object",
+      "properties": {
+        "serviceCategory": {
+          "type": "string",
+          "enum": [
+            "wash_and_fold",
+            "dry_cleaning",
+            "ironing_only"
+          ],
+          "default": "wash_and_fold"
+        },
+        "estimatedWeightKg": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "bagCount": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "specialInstructions": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "additionalProperties": false
+    },
+    "BookingVerticalData": {
+      "type": "object",
+      "properties": {
+        "printJob": {
+          "type": "object",
+          "properties": {
+            "fileUrls": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              },
+              "minItems": 1
+            },
+            "copies": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "default": 1
+            },
+            "colorMode": {
+              "type": "string",
+              "enum": [
+                "black_and_white",
+                "color"
+              ],
+              "default": "black_and_white"
+            },
+            "paperSize": {
+              "type": "string",
+              "enum": [
+                "A4",
+                "A3",
+                "Letter",
+                "Legal"
+              ],
+              "default": "A4"
+            },
+            "finish": {
+              "type": "string",
+              "enum": [
+                "none",
+                "stapled",
+                "spiral_bound",
+                "laminated"
+              ],
+              "default": "none"
+            },
+            "notes": {
+              "type": "string",
+              "maxLength": 500
+            }
+          },
+          "required": [
+            "fileUrls"
+          ],
+          "additionalProperties": false
+        },
+        "laundryJob": {
+          "type": "object",
+          "properties": {
+            "serviceCategory": {
+              "type": "string",
+              "enum": [
+                "wash_and_fold",
+                "dry_cleaning",
+                "ironing_only"
+              ],
+              "default": "wash_and_fold"
+            },
+            "estimatedWeightKg": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "bagCount": {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            },
+            "specialInstructions": {
+              "type": "string",
+              "maxLength": 500
+            }
+          },
+          "additionalProperties": false
+        }
+      },
       "additionalProperties": false
     },
     "ProviderConfigView": {
@@ -233,6 +490,17 @@
             "defaultConcurrentSlots"
           ],
           "additionalProperties": false
+        },
+        "vertical": {
+          "type": "string",
+          "enum": [
+            "barbershop",
+            "salon",
+            "laundry",
+            "printing",
+            "general"
+          ],
+          "default": "general"
         }
       },
       "required": [
@@ -314,6 +582,16 @@
         "imageUrl": {
           "type": "string",
           "format": "uri"
+        },
+        "serviceType": {
+          "type": "string",
+          "enum": [
+            "appointment",
+            "drop_off",
+            "print_job",
+            "queue_ticket"
+          ],
+          "default": "appointment"
         },
         "bufferBeforeMinutes": {
           "type": "integer",
@@ -608,6 +886,93 @@
             "web",
             "mobile"
           ]
+        },
+        "verticalData": {
+          "type": "object",
+          "properties": {
+            "printJob": {
+              "type": "object",
+              "properties": {
+                "fileUrls": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "minItems": 1
+                },
+                "copies": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "default": 1
+                },
+                "colorMode": {
+                  "type": "string",
+                  "enum": [
+                    "black_and_white",
+                    "color"
+                  ],
+                  "default": "black_and_white"
+                },
+                "paperSize": {
+                  "type": "string",
+                  "enum": [
+                    "A4",
+                    "A3",
+                    "Letter",
+                    "Legal"
+                  ],
+                  "default": "A4"
+                },
+                "finish": {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "stapled",
+                    "spiral_bound",
+                    "laminated"
+                  ],
+                  "default": "none"
+                },
+                "notes": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "fileUrls"
+              ],
+              "additionalProperties": false
+            },
+            "laundryJob": {
+              "type": "object",
+              "properties": {
+                "serviceCategory": {
+                  "type": "string",
+                  "enum": [
+                    "wash_and_fold",
+                    "dry_cleaning",
+                    "ironing_only"
+                  ],
+                  "default": "wash_and_fold"
+                },
+                "estimatedWeightKg": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "bagCount": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                },
+                "specialInstructions": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
         }
       },
       "required": [
@@ -663,6 +1028,8 @@
               "enum": [
                 "pending",
                 "confirmed",
+                "in_progress",
+                "ready_for_pickup",
                 "rejected",
                 "expired",
                 "cancelled",
@@ -724,6 +1091,93 @@
                 "web",
                 "mobile"
               ]
+            },
+            "verticalData": {
+              "type": "object",
+              "properties": {
+                "printJob": {
+                  "type": "object",
+                  "properties": {
+                    "fileUrls": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "minItems": 1
+                    },
+                    "copies": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "default": 1
+                    },
+                    "colorMode": {
+                      "type": "string",
+                      "enum": [
+                        "black_and_white",
+                        "color"
+                      ],
+                      "default": "black_and_white"
+                    },
+                    "paperSize": {
+                      "type": "string",
+                      "enum": [
+                        "A4",
+                        "A3",
+                        "Letter",
+                        "Legal"
+                      ],
+                      "default": "A4"
+                    },
+                    "finish": {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "stapled",
+                        "spiral_bound",
+                        "laminated"
+                      ],
+                      "default": "none"
+                    },
+                    "notes": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "fileUrls"
+                  ],
+                  "additionalProperties": false
+                },
+                "laundryJob": {
+                  "type": "object",
+                  "properties": {
+                    "serviceCategory": {
+                      "type": "string",
+                      "enum": [
+                        "wash_and_fold",
+                        "dry_cleaning",
+                        "ironing_only"
+                      ],
+                      "default": "wash_and_fold"
+                    },
+                    "estimatedWeightKg": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "bagCount": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0
+                    },
+                    "specialInstructions": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
             },
             "createdAt": {
               "$ref": "#/definitions/CreateBookingResponse/properties/booking/properties/startUtc"
@@ -818,6 +1272,8 @@
               "enum": [
                 "pending",
                 "confirmed",
+                "in_progress",
+                "ready_for_pickup",
                 "rejected",
                 "expired",
                 "cancelled",
@@ -879,6 +1335,93 @@
                 "web",
                 "mobile"
               ]
+            },
+            "verticalData": {
+              "type": "object",
+              "properties": {
+                "printJob": {
+                  "type": "object",
+                  "properties": {
+                    "fileUrls": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "minItems": 1
+                    },
+                    "copies": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "default": 1
+                    },
+                    "colorMode": {
+                      "type": "string",
+                      "enum": [
+                        "black_and_white",
+                        "color"
+                      ],
+                      "default": "black_and_white"
+                    },
+                    "paperSize": {
+                      "type": "string",
+                      "enum": [
+                        "A4",
+                        "A3",
+                        "Letter",
+                        "Legal"
+                      ],
+                      "default": "A4"
+                    },
+                    "finish": {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "stapled",
+                        "spiral_bound",
+                        "laminated"
+                      ],
+                      "default": "none"
+                    },
+                    "notes": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "fileUrls"
+                  ],
+                  "additionalProperties": false
+                },
+                "laundryJob": {
+                  "type": "object",
+                  "properties": {
+                    "serviceCategory": {
+                      "type": "string",
+                      "enum": [
+                        "wash_and_fold",
+                        "dry_cleaning",
+                        "ironing_only"
+                      ],
+                      "default": "wash_and_fold"
+                    },
+                    "estimatedWeightKg": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "bagCount": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0
+                    },
+                    "specialInstructions": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
             },
             "createdAt": {
               "$ref": "#/definitions/CancelBookingResponse/properties/booking/properties/startUtc"
@@ -980,6 +1523,8 @@
               "enum": [
                 "pending",
                 "confirmed",
+                "in_progress",
+                "ready_for_pickup",
                 "rejected",
                 "expired",
                 "cancelled",
@@ -1041,6 +1586,93 @@
                 "web",
                 "mobile"
               ]
+            },
+            "verticalData": {
+              "type": "object",
+              "properties": {
+                "printJob": {
+                  "type": "object",
+                  "properties": {
+                    "fileUrls": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "minItems": 1
+                    },
+                    "copies": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "default": 1
+                    },
+                    "colorMode": {
+                      "type": "string",
+                      "enum": [
+                        "black_and_white",
+                        "color"
+                      ],
+                      "default": "black_and_white"
+                    },
+                    "paperSize": {
+                      "type": "string",
+                      "enum": [
+                        "A4",
+                        "A3",
+                        "Letter",
+                        "Legal"
+                      ],
+                      "default": "A4"
+                    },
+                    "finish": {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "stapled",
+                        "spiral_bound",
+                        "laminated"
+                      ],
+                      "default": "none"
+                    },
+                    "notes": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "fileUrls"
+                  ],
+                  "additionalProperties": false
+                },
+                "laundryJob": {
+                  "type": "object",
+                  "properties": {
+                    "serviceCategory": {
+                      "type": "string",
+                      "enum": [
+                        "wash_and_fold",
+                        "dry_cleaning",
+                        "ironing_only"
+                      ],
+                      "default": "wash_and_fold"
+                    },
+                    "estimatedWeightKg": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "bagCount": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0
+                    },
+                    "specialInstructions": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
             },
             "createdAt": {
               "$ref": "#/definitions/RescheduleBookingResponse/properties/booking/properties/startUtc"
@@ -1139,6 +1771,8 @@
               "enum": [
                 "pending",
                 "confirmed",
+                "in_progress",
+                "ready_for_pickup",
                 "rejected",
                 "expired",
                 "cancelled",
@@ -1200,6 +1834,93 @@
                 "web",
                 "mobile"
               ]
+            },
+            "verticalData": {
+              "type": "object",
+              "properties": {
+                "printJob": {
+                  "type": "object",
+                  "properties": {
+                    "fileUrls": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "minItems": 1
+                    },
+                    "copies": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "default": 1
+                    },
+                    "colorMode": {
+                      "type": "string",
+                      "enum": [
+                        "black_and_white",
+                        "color"
+                      ],
+                      "default": "black_and_white"
+                    },
+                    "paperSize": {
+                      "type": "string",
+                      "enum": [
+                        "A4",
+                        "A3",
+                        "Letter",
+                        "Legal"
+                      ],
+                      "default": "A4"
+                    },
+                    "finish": {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "stapled",
+                        "spiral_bound",
+                        "laminated"
+                      ],
+                      "default": "none"
+                    },
+                    "notes": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "required": [
+                    "fileUrls"
+                  ],
+                  "additionalProperties": false
+                },
+                "laundryJob": {
+                  "type": "object",
+                  "properties": {
+                    "serviceCategory": {
+                      "type": "string",
+                      "enum": [
+                        "wash_and_fold",
+                        "dry_cleaning",
+                        "ironing_only"
+                      ],
+                      "default": "wash_and_fold"
+                    },
+                    "estimatedWeightKg": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "bagCount": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0
+                    },
+                    "specialInstructions": {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
             },
             "createdAt": {
               "$ref": "#/definitions/RespondToBookingResponse/properties/booking/properties/startUtc"
@@ -1332,6 +2053,16 @@
             "defaultConcurrentSlots"
           ],
           "additionalProperties": false
+        },
+        "vertical": {
+          "type": "string",
+          "enum": [
+            "barbershop",
+            "salon",
+            "laundry",
+            "printing",
+            "general"
+          ]
         }
       },
       "required": [
@@ -1425,6 +2156,15 @@
         "imageUrl": {
           "type": "string",
           "format": "uri"
+        },
+        "serviceType": {
+          "type": "string",
+          "enum": [
+            "appointment",
+            "drop_off",
+            "print_job",
+            "queue_ticket"
+          ]
         }
       },
       "required": [
@@ -1598,6 +2338,17 @@
               },
               "city": {
                 "type": "string"
+              },
+              "vertical": {
+                "type": "string",
+                "enum": [
+                  "barbershop",
+                  "salon",
+                  "laundry",
+                  "printing",
+                  "general"
+                ],
+                "default": "general"
               }
             },
             "required": [
@@ -1661,6 +2412,17 @@
             },
             "city": {
               "type": "string"
+            },
+            "vertical": {
+              "type": "string",
+              "enum": [
+                "barbershop",
+                "salon",
+                "laundry",
+                "printing",
+                "general"
+              ],
+              "default": "general"
             }
           },
           "required": [
@@ -1741,6 +2503,16 @@
               "imageUrl": {
                 "type": "string",
                 "format": "uri"
+              },
+              "serviceType": {
+                "type": "string",
+                "enum": [
+                  "appointment",
+                  "drop_off",
+                  "print_job",
+                  "queue_ticket"
+                ],
+                "default": "appointment"
               }
             },
             "required": [
@@ -1924,6 +2696,17 @@
                 "defaultConcurrentSlots"
               ],
               "additionalProperties": false
+            },
+            "vertical": {
+              "type": "string",
+              "enum": [
+                "barbershop",
+                "salon",
+                "laundry",
+                "printing",
+                "general"
+              ],
+              "default": "general"
             }
           },
           "required": [
@@ -2007,6 +2790,16 @@
               "imageUrl": {
                 "type": "string",
                 "format": "uri"
+              },
+              "serviceType": {
+                "type": "string",
+                "enum": [
+                  "appointment",
+                  "drop_off",
+                  "print_job",
+                  "queue_ticket"
+                ],
+                "default": "appointment"
               },
               "bufferBeforeMinutes": {
                 "type": "integer",
@@ -2196,6 +2989,8 @@
                 "enum": [
                   "pending",
                   "confirmed",
+                  "in_progress",
+                  "ready_for_pickup",
                   "rejected",
                   "expired",
                   "cancelled",
@@ -2250,6 +3045,93 @@
                   "web",
                   "mobile"
                 ]
+              },
+              "verticalData": {
+                "type": "object",
+                "properties": {
+                  "printJob": {
+                    "type": "object",
+                    "properties": {
+                      "fileUrls": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "minItems": 1
+                      },
+                      "copies": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "default": 1
+                      },
+                      "colorMode": {
+                        "type": "string",
+                        "enum": [
+                          "black_and_white",
+                          "color"
+                        ],
+                        "default": "black_and_white"
+                      },
+                      "paperSize": {
+                        "type": "string",
+                        "enum": [
+                          "A4",
+                          "A3",
+                          "Letter",
+                          "Legal"
+                        ],
+                        "default": "A4"
+                      },
+                      "finish": {
+                        "type": "string",
+                        "enum": [
+                          "none",
+                          "stapled",
+                          "spiral_bound",
+                          "laminated"
+                        ],
+                        "default": "none"
+                      },
+                      "notes": {
+                        "type": "string",
+                        "maxLength": 500
+                      }
+                    },
+                    "required": [
+                      "fileUrls"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "laundryJob": {
+                    "type": "object",
+                    "properties": {
+                      "serviceCategory": {
+                        "type": "string",
+                        "enum": [
+                          "wash_and_fold",
+                          "dry_cleaning",
+                          "ironing_only"
+                        ],
+                        "default": "wash_and_fold"
+                      },
+                      "estimatedWeightKg": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      },
+                      "bagCount": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0
+                      },
+                      "specialInstructions": {
+                        "type": "string",
+                        "maxLength": 500
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
               },
               "createdAt": {
                 "$ref": "#/definitions/GetProviderDashboardResponse/properties/bookings/items/properties/startUtc"
@@ -2354,6 +3236,8 @@
                 "enum": [
                   "pending",
                   "confirmed",
+                  "in_progress",
+                  "ready_for_pickup",
                   "rejected",
                   "expired",
                   "cancelled",
@@ -2415,6 +3299,93 @@
                   "web",
                   "mobile"
                 ]
+              },
+              "verticalData": {
+                "type": "object",
+                "properties": {
+                  "printJob": {
+                    "type": "object",
+                    "properties": {
+                      "fileUrls": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "minItems": 1
+                      },
+                      "copies": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "default": 1
+                      },
+                      "colorMode": {
+                        "type": "string",
+                        "enum": [
+                          "black_and_white",
+                          "color"
+                        ],
+                        "default": "black_and_white"
+                      },
+                      "paperSize": {
+                        "type": "string",
+                        "enum": [
+                          "A4",
+                          "A3",
+                          "Letter",
+                          "Legal"
+                        ],
+                        "default": "A4"
+                      },
+                      "finish": {
+                        "type": "string",
+                        "enum": [
+                          "none",
+                          "stapled",
+                          "spiral_bound",
+                          "laminated"
+                        ],
+                        "default": "none"
+                      },
+                      "notes": {
+                        "type": "string",
+                        "maxLength": 500
+                      }
+                    },
+                    "required": [
+                      "fileUrls"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "laundryJob": {
+                    "type": "object",
+                    "properties": {
+                      "serviceCategory": {
+                        "type": "string",
+                        "enum": [
+                          "wash_and_fold",
+                          "dry_cleaning",
+                          "ironing_only"
+                        ],
+                        "default": "wash_and_fold"
+                      },
+                      "estimatedWeightKg": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      },
+                      "bagCount": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0
+                      },
+                      "specialInstructions": {
+                        "type": "string",
+                        "maxLength": 500
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
               },
               "createdAt": {
                 "$ref": "#/definitions/ListProviderBookingsResponse/properties/bookings/items/properties/startUtc"
@@ -2513,6 +3484,8 @@
                 "enum": [
                   "pending",
                   "confirmed",
+                  "in_progress",
+                  "ready_for_pickup",
                   "rejected",
                   "expired",
                   "cancelled",
@@ -2574,6 +3547,93 @@
                   "web",
                   "mobile"
                 ]
+              },
+              "verticalData": {
+                "type": "object",
+                "properties": {
+                  "printJob": {
+                    "type": "object",
+                    "properties": {
+                      "fileUrls": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "minItems": 1
+                      },
+                      "copies": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0,
+                        "default": 1
+                      },
+                      "colorMode": {
+                        "type": "string",
+                        "enum": [
+                          "black_and_white",
+                          "color"
+                        ],
+                        "default": "black_and_white"
+                      },
+                      "paperSize": {
+                        "type": "string",
+                        "enum": [
+                          "A4",
+                          "A3",
+                          "Letter",
+                          "Legal"
+                        ],
+                        "default": "A4"
+                      },
+                      "finish": {
+                        "type": "string",
+                        "enum": [
+                          "none",
+                          "stapled",
+                          "spiral_bound",
+                          "laminated"
+                        ],
+                        "default": "none"
+                      },
+                      "notes": {
+                        "type": "string",
+                        "maxLength": 500
+                      }
+                    },
+                    "required": [
+                      "fileUrls"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "laundryJob": {
+                    "type": "object",
+                    "properties": {
+                      "serviceCategory": {
+                        "type": "string",
+                        "enum": [
+                          "wash_and_fold",
+                          "dry_cleaning",
+                          "ironing_only"
+                        ],
+                        "default": "wash_and_fold"
+                      },
+                      "estimatedWeightKg": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      },
+                      "bagCount": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0
+                      },
+                      "specialInstructions": {
+                        "type": "string",
+                        "maxLength": 500
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
               },
               "createdAt": {
                 "$ref": "#/definitions/GetMyBookingsResponse/properties/bookings/items/properties/startUtc"

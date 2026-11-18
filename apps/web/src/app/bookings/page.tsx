@@ -149,6 +149,17 @@ export default function BookingsPage() {
             </div>
             <p>{formatAppointment(booking.startUtc, booking.providerTimeZone)}</p>
             <p className="muted">{booking.confirmationMode === 'instant' ? 'Instant confirmation' : 'Approval required'}</p>
+            {booking.verticalData?.printJob ? (
+              <p className="muted" style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>
+                🖨️ {booking.verticalData.printJob.copies} copy · {booking.verticalData.printJob.colorMode.replace('_', ' ')} · {booking.verticalData.printJob.paperSize}
+              </p>
+            ) : null}
+            {booking.verticalData?.laundryJob ? (
+              <p className="muted" style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>
+                🧺 {booking.verticalData.laundryJob.serviceCategory.replace(/_/g, ' ')}
+                {booking.verticalData.laundryJob.estimatedWeightKg ? ` (~${booking.verticalData.laundryJob.estimatedWeightKg}kg)` : ''}
+              </p>
+            ) : null}
 
             <div className="actions">
               {['confirmed', 'pending'].includes(booking.status) ? (

@@ -203,6 +203,16 @@ button:disabled {
   color: #17652f;
 }
 
+.badge.in_progress {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.badge.ready_for_pickup {
+  background: #fef3c7;
+  color: #92400e;
+}
+
 .badge.pending {
   background: #fff1cf;
   color: #7a5200;
@@ -211,6 +221,47 @@ button:disabled {
 .badge.cancelled, .badge.rejected, .badge.expired {
   background: #fbe0e0;
   color: #9c2020;
+}
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.filter-pill {
+  border: 1px solid #d3d7de;
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #3b424e;
+  transition: all 0.15s ease;
+}
+
+.filter-pill:hover {
+  border-color: #1457d8;
+  color: #1457d8;
+}
+
+.filter-pill.active {
+  background: #1457d8;
+  border-color: #1457d8;
+  color: #fff;
+}
+
+.vertical-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #eef2f6;
+  color: #334155;
+  margin-bottom: 0.5rem;
 }
 
 .error {

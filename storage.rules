@@ -11,6 +11,33 @@ service firebase.storage {
         && request.resource.contentType.matches('image/.*');
     }
 
+    match /printJobs/{customerId}/{jobId}/{fileName} {
+      function bookingPath() {
+        return /databases/(default)/documents/bookings/$(jobId);
+      }
+
+      function bookingData() {
+        return firestore.get(bookingPath()).data;
+      }
+
+      allow read: if request.auth != null
+        && (request.auth.uid == customerId
+            || (firestore.exists(bookingPath())
+                && bookingData().customerId == customerId
+            && request.auth.token.keys().hasAll(['providerId', 'role'])
+                && request.auth.token.providerId == bookingData().providerId
+                && request.auth.token.role in ['owner', 'staff', 'admin']));
+      allow write: if request.auth != null
+        && request.auth.uid == customerId
+        && request.resource.size < 50 * 1024 * 1024
+        && (!firestore.exists(bookingPath()) || bookingData().customerId == customerId)
+        && (request.resource.contentType.matches('application/pdf')
+            || request.resource.contentType.matches('image/.*')
+            || request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            || request.resource.contentType.matches('application/msword')
+            || request.resource.contentType.matches('text/plain'));
+    }
+
     match /{allPaths=**} {
       allow read, write: if false;
     }

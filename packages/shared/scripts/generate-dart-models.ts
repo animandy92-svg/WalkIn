@@ -242,7 +242,7 @@ while (true) {
 const header = [
   '// GENERATED FILE — do not edit by hand.',
   '// Run `npm run schema:generate` from the repository root.',
-  '// ignore_for_file: unnecessary_cast, prefer_const_constructors',
+  '// ignore_for_file: unnecessary_cast, prefer_const_constructors, constant_identifier_names',
   '',
 ].join('\n');
 

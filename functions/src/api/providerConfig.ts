@@ -51,6 +51,7 @@ export const saveProvider = onCall({ enforceAppCheck }, async (request) => {
     };
     if (input.address !== undefined) data.address = input.address;
     if (input.logoUrl !== undefined) data.logoUrl = input.logoUrl;
+    if (input.vertical !== undefined) data.vertical = input.vertical;
     if (!previous) {
       data.ownerId = uid;
       data.createdAt = now;
@@ -106,6 +107,7 @@ export const saveService = onCall({ enforceAppCheck }, async (request) => {
       updatedAt: now,
     };
     if (input.imageUrl !== undefined) data.imageUrl = input.imageUrl;
+    if (input.serviceType !== undefined) data.serviceType = input.serviceType;
     if (!previous) data.createdAt = now;
 
     await ref.set(data, { merge: true });

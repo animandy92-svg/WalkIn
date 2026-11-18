@@ -91,13 +91,13 @@ With the emulators running, seed a demo provider and run the integration tests:
 ```powershell
 $env:JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr'
 $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
-npm run emulators:test       # in one terminal; Auth, Firestore, Functions only, UI disabled
+npm run emulators:test       # in one terminal; Auth, Firestore, Functions, Storage; UI disabled
 npm run emulator:seed        # optional; the test seeds automatically
 npm run test:emulator
 ```
 
-The emulator UI, Storage, and Pub/Sub downloads are not required for this gate, so `emulators:test`
-uses `firebase.test.json` to start only the three emulators the tests need. The launcher in
+The emulator UI and Pub/Sub downloads are not required for this gate, so `emulators:test`
+uses `firebase.test.json` to start Auth, Firestore, Functions, and Storage with the UI disabled. The launcher in
 `scripts/emulator/start.mjs` raises `FUNCTIONS_DISCOVERY_TIMEOUT` to 60s because loading
 `firebase-admin` and `firebase-functions` on this machine takes ~11s, longer than the Functions
 emulator's default 10s discovery window. The integration tests create a provider with instant and
@@ -105,7 +105,8 @@ approval services, then verify that 20 parallel bookings for one single-capacity
 exactly one booking, that idempotency keys are honoured, and that only the owning provider's staff
 can review a pending booking. The same gate now also verifies booking audit records and the
 Firestore rules (unauthenticated reads, customer/provider/admin access, cross-provider denial,
-backend-only writes, user profile restrictions, and audit/notification log access). The seed script
+backend-only writes, user profile restrictions, and audit/notification log access), and Storage rules
+for private print-job files. The seed script
 **clears all data in the demo project** before writing fixtures.
 
 ### Flutter emulator integration test

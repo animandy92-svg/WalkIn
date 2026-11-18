@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import type {
+  BookingVerticalData,
   BookingView,
   GetProviderDetailsResponse,
   SlotView,
@@ -31,6 +32,17 @@ export default function ServiceBookingPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [confirmed, setConfirmed] = useState<BookingView | null>(null);
+
+  // Vertical-specific state
+  const [printFileUrl, setPrintFileUrl] = useState('');
+  const [printCopies, setPrintCopies] = useState(1);
+  const [printColorMode, setPrintColorMode] = useState<'black_and_white' | 'color'>('black_and_white');
+  const [printPaperSize, setPrintPaperSize] = useState<'A4' | 'A3' | 'Letter' | 'Legal'>('A4');
+  const [printFinish, setPrintFinish] = useState<'none' | 'stapled' | 'spiral_bound' | 'laminated'>('none');
+
+  const [laundryCategory, setLaundryCategory] = useState<'wash_and_fold' | 'dry_cleaning' | 'ironing_only'>('wash_and_fold');
+  const [laundryWeight, setLaundryWeight] = useState<number | ''>('');
+  const [laundryBags, setLaundryBags] = useState(1);
 
   const service = useMemo(
     () => details?.services.find((item) => item.id === params.serviceId) ?? null,
@@ -96,6 +108,32 @@ export default function ServiceBookingPage() {
     setBusy(true);
     setError('');
 
+    const isPrinting = details.provider.vertical === 'printing' || service.serviceType === 'print_job';
+    const isLaundry = details.provider.vertical === 'laundry' || service.serviceType === 'drop_off';
+
+    let verticalData: BookingVerticalData | undefined;
+    if (isPrinting && printFileUrl.trim()) {
+      verticalData = {
+        printJob: {
+          fileUrls: [printFileUrl.trim()],
+          copies: printCopies,
+          colorMode: printColorMode,
+          paperSize: printPaperSize,
+          finish: printFinish,
+          notes: note.trim() || undefined,
+        },
+      };
+    } else if (isLaundry) {
+      verticalData = {
+        laundryJob: {
+          serviceCategory: laundryCategory,
+          ...(typeof laundryWeight === 'number' && laundryWeight > 0 ? { estimatedWeightKg: laundryWeight } : {}),
+          bagCount: laundryBags,
+          specialInstructions: note.trim() || undefined,
+        },
+      };
+    }
+
     try {
       const result = await api.createBooking({
         providerId: details.provider.id,
@@ -105,6 +143,7 @@ export default function ServiceBookingPage() {
         idempotencyKey: newIdempotencyKey(),
         note: note || undefined,
         source: 'web',
+        ...(verticalData ? { verticalData } : {}),
       });
       setConfirmed(result.booking);
     } catch (err) {
@@ -201,6 +240,113 @@ export default function ServiceBookingPage() {
             );
           })}
         </div>
+
+        {(provider.vertical === 'printing' || service.serviceType === 'print_job') ? (
+          <div className="panel" style={{ marginTop: '1rem', background: '#f8fafc' }}>
+            <h3 style={{ margin: '0 0 0.75rem' }}>🖨️ Print Job Details</h3>
+            <div className="field">
+              <label className="label" htmlFor="print-url">Document URL / File Link</label>
+              <input
+                id="print-url"
+                type="url"
+                placeholder="https://..."
+                value={printFileUrl}
+                onChange={(e) => setPrintFileUrl(e.target.value)}
+              />
+              <span className="muted" style={{ fontSize: '0.8rem' }}>Direct link to your PDF, document, or image</span>
+            </div>
+            <div className="form-grid">
+              <div className="field">
+                <label className="label" htmlFor="print-copies">Copies</label>
+                <input
+                  id="print-copies"
+                  type="number"
+                  min={1}
+                  value={printCopies}
+                  onChange={(e) => setPrintCopies(Math.max(1, Number(e.target.value)))}
+                />
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="print-color">Color</label>
+                <select
+                  id="print-color"
+                  value={printColorMode}
+                  onChange={(e) => setPrintColorMode(e.target.value as 'black_and_white' | 'color')}
+                >
+                  <option value="black_and_white">Black & White</option>
+                  <option value="color">Full Color</option>
+                </select>
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="print-size">Paper Size</label>
+                <select
+                  id="print-size"
+                  value={printPaperSize}
+                  onChange={(e) => setPrintPaperSize(e.target.value as 'A4' | 'A3' | 'Letter' | 'Legal')}
+                >
+                  <option value="A4">A4</option>
+                  <option value="A3">A3</option>
+                  <option value="Letter">Letter</option>
+                  <option value="Legal">Legal</option>
+                </select>
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="print-finish">Finishing</label>
+                <select
+                  id="print-finish"
+                  value={printFinish}
+                  onChange={(e) => setPrintFinish(e.target.value as 'none' | 'stapled' | 'spiral_bound' | 'laminated')}
+                >
+                  <option value="none">Standard (None)</option>
+                  <option value="stapled">Stapled</option>
+                  <option value="spiral_bound">Spiral Bound</option>
+                  <option value="laminated">Laminated</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {(provider.vertical === 'laundry' || service.serviceType === 'drop_off') ? (
+          <div className="panel" style={{ marginTop: '1rem', background: '#f8fafc' }}>
+            <h3 style={{ margin: '0 0 0.75rem' }}>🧺 Laundry Drop-off Specs</h3>
+            <div className="form-grid">
+              <div className="field">
+                <label className="label" htmlFor="laundry-cat">Service Type</label>
+                <select
+                  id="laundry-cat"
+                  value={laundryCategory}
+                  onChange={(e) => setLaundryCategory(e.target.value as 'wash_and_fold' | 'dry_cleaning' | 'ironing_only')}
+                >
+                  <option value="wash_and_fold">Wash & Fold</option>
+                  <option value="dry_cleaning">Dry Cleaning</option>
+                  <option value="ironing_only">Ironing / Pressing</option>
+                </select>
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="laundry-bags">Number of Bags</label>
+                <input
+                  id="laundry-bags"
+                  type="number"
+                  min={1}
+                  value={laundryBags}
+                  onChange={(e) => setLaundryBags(Math.max(1, Number(e.target.value)))}
+                />
+              </div>
+              <div className="field">
+                <label className="label" htmlFor="laundry-weight">Estimated Weight (kg, optional)</label>
+                <input
+                  id="laundry-weight"
+                  type="number"
+                  min={0}
+                  step={0.5}
+                  value={laundryWeight}
+                  onChange={(e) => setLaundryWeight(e.target.value ? Number(e.target.value) : '')}
+                />
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         <div className="field" style={{ marginTop: '1.25rem' }}>
           <label className="label" htmlFor="note">Note to provider (optional)</label>

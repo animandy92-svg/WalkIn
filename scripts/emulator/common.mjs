@@ -3,12 +3,12 @@ import { getAuth } from 'firebase-admin/auth';
 import { getFirestore, Timestamp } from 'firebase-admin/firestore';
 
 export const PROJECT_ID = process.env.GCLOUD_PROJECT ?? 'demo-walkin';
-export const FUNCTIONS_URL = process.env.FUNCTIONS_EMULATOR_URL ?? 'http://127.0.0.1:5001';
-export const AUTH_URL = process.env.AUTH_EMULATOR_URL ?? 'http://127.0.0.1:9099';
+export const FUNCTIONS_URL = process.env.FUNCTIONS_EMULATOR_URL ?? 'http://127.0.0.1:5101';
+export const AUTH_URL = process.env.AUTH_EMULATOR_URL ?? 'http://127.0.0.1:9198';
 export const REGION = process.env.FIREBASE_REGION ?? 'us-central1';
 
-process.env.FIRESTORE_EMULATOR_HOST ??= '127.0.0.1:8080';
-process.env.FIREBASE_AUTH_EMULATOR_HOST ??= '127.0.0.1:9099';
+process.env.FIRESTORE_EMULATOR_HOST ??= '127.0.0.1:8180';
+process.env.FIREBASE_AUTH_EMULATOR_HOST ??= '127.0.0.1:9198';
 process.env.GCLOUD_PROJECT = PROJECT_ID;
 
 if (getApps().length === 0) {
