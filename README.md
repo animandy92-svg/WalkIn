@@ -30,6 +30,22 @@ The configured project is `walkin-123` (`.firebaserc`). The emulator uses a sepa
 For real deployments, confirm the project is on the Blaze plan and that Auth providers, App Check,
 and the desired Cloud Functions region (`us-central1` by default) are configured.
 
+### Deploy the web app with Firebase App Hosting
+
+The Next.js app is configured as the `walkin-web` App Hosting backend, with `apps/web` as its
+monorepo root. App Hosting requires the Firebase project to use the Blaze plan. Once the project
+is upgraded and the backend is created in Firebase Console (Hosting & Serverless → App Hosting),
+select `apps/web` as its root directory and `us-central1` as its primary region. Then deploy from
+the repository root:
+
+```powershell
+npm run deploy:web
+```
+
+The deploy command targets App Hosting only; it does not deploy Firestore rules, Storage rules, or
+Cloud Functions. Set any required web runtime variables in the App Hosting backend settings or
+`apps/web/apphosting.yaml` before deploying.
+
 ## Prerequisites
 
 - Node.js 22 or newer (Node 24 is supported locally)

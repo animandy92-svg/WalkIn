@@ -12,6 +12,7 @@
     "build": "npm run build -w @walkin/shared && npm run build -w @walkin/functions && npm run build -w @walkin/web",
     "build:backend": "npm run build -w @walkin/shared && npm run build -w @walkin/functions",
     "dev:web": "npm run dev -w @walkin/web",
+    "deploy:web": "firebase deploy --only apphosting:walkin-web --project walkin-123",
     "emulators": "firebase emulators:start --project demo-walkin",
     "emulators:test": "node scripts/emulator/start.mjs",
     "emulator:seed": "node scripts/emulator/seed.mjs",
