@@ -83,6 +83,7 @@ export const serviceViewSchema = z.object({
   price: moneySchema,
   confirmationMode: confirmationModeSchema,
   capacityScope: capacityScopeSchema,
+  staffIds: z.array(z.string()),
   active: z.boolean(),
   imageUrl: z.string().url().optional(),
 });

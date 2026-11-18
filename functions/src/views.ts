@@ -70,6 +70,7 @@ export function serviceToView(doc: ServiceDoc): ServiceView {
     price: doc.price,
     confirmationMode: doc.confirmationMode,
     capacityScope: doc.capacityScope,
+    staffIds: doc.staffIds,
     active: doc.active,
     imageUrl: doc.imageUrl,
   };
