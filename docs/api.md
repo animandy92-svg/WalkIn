@@ -16,7 +16,9 @@ deployed environments. Errors include a machine-readable `details.code` from `Fu
 | `saveService` | service fields; optional serviceId | `{ id }` |
 | `saveStaff` | staff fields; optional staffId | `{ id }` |
 | `saveAvailability` | weekly rule or date exception; optional ruleId | `{ id }` |
-| `listProviderBookings` | providerId | bookings[] (provider staff only) |
+| `deleteAvailabilityRule` | providerId, ruleId | `{ id }` (owner/admin only) |
+| `getProviderDashboard` | providerId | provider config, services, staff, availability rules, bookings (provider staff only) |
+| `listProviderBookings` | providerId, from?, to? | bookings[] (provider staff only) |
 | `registerFcmToken` | token, platform | `{}` |
 | `removeFcmToken` | token | `{}` |
 

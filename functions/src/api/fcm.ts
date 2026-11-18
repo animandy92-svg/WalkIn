@@ -5,7 +5,7 @@ import {
   registerFcmTokenRequestSchema,
   removeFcmTokenRequestSchema,
 } from '@walkin/shared';
-import { db, enforceAppCheck } from '../firebase.js';
+import { db, enforceAppCheck, TRANSACTION_OPTIONS } from '../firebase.js';
 import type { UserDoc } from '../types.js';
 import { parseRequest, requireUid, toHttpsError } from './helpers.js';
 
@@ -41,7 +41,7 @@ export const removeFcmToken = onCall({ enforceAppCheck }, async (request) => {
       const tokens = { ...((snapshot.data() as UserDoc).fcmTokens ?? {}) };
       delete tokens[input.token];
       transaction.set(ref, { fcmTokens: tokens, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
-    });
+    }, TRANSACTION_OPTIONS);
 
     return emptyResponseSchema.parse({});
   } catch (error) {

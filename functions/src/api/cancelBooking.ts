@@ -7,7 +7,7 @@ import {
   loadProvider,
 } from '../booking.js';
 import { DomainError } from '../errors.js';
-import { db, enforceAppCheck } from '../firebase.js';
+import { db, enforceAppCheck, TRANSACTION_OPTIONS } from '../firebase.js';
 import type { BookingDoc } from '../types.js';
 import { bookingToView, readDoc } from '../views.js';
 import { canReadBooking, parseRequest, requireUid, toHttpsError } from './helpers.js';
@@ -29,7 +29,7 @@ export const cancelBooking = onCall({ enforceAppCheck }, async (request) => {
     const startsInMs = booking.startUtc.toMillis() - Date.now();
     if (
       isCustomer
-      && ['confirmed', 'pending'].includes(booking.status)
+      && booking.status === 'confirmed'
       && startsInMs < provider.bookingPolicy.cancelCutoffHours * HOUR_MS
     ) {
       throw new DomainError('POLICY_VIOLATION', 'This booking can no longer be cancelled online');
@@ -46,7 +46,7 @@ export const cancelBooking = onCall({ enforceAppCheck }, async (request) => {
         input.reason,
         Timestamp.now(),
       );
-    });
+    }, TRANSACTION_OPTIONS);
 
     return cancelBookingResponseSchema.parse({ booking: bookingToView(updated) });
   } catch (error) {

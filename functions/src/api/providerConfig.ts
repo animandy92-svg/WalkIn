@@ -1,4 +1,4 @@
-import { Timestamp, type QueryDocumentSnapshot } from 'firebase-admin/firestore';
+import { Timestamp } from 'firebase-admin/firestore';
 import { onCall } from 'firebase-functions/v2/https';
 import {
   savedEntityResponseSchema,
@@ -8,8 +8,8 @@ import {
   saveStaffRequestSchema,
 } from '@walkin/shared';
 import { auth, db, enforceAppCheck } from '../firebase.js';
-import type { AvailabilityRuleDoc, BookingDoc, ProviderDoc, ServiceDoc, StaffDoc } from '../types.js';
-import { bookingToView, readDoc } from '../views.js';
+import type { AvailabilityRuleDoc, ProviderDoc, ServiceDoc, StaffDoc } from '../types.js';
+import { readDoc } from '../views.js';
 import { DomainError } from '../errors.js';
 import { parseRequest, requireProviderRole, requireUid, toHttpsError } from './helpers.js';
 
@@ -176,28 +176,6 @@ export const saveAvailability = onCall({ enforceAppCheck }, async (request) => {
 
     await ref.set(data, { merge: true });
     return savedEntityResponseSchema.parse({ id: ref.id });
-  } catch (error) {
-    throw toHttpsError(error);
-  }
-});
-
-/** Provider-safe read used by the dashboard, since client rules deny direct writes. */
-export const listProviderBookings = onCall({ enforceAppCheck }, async (request) => {
-  try {
-    const data = request.data as { providerId?: string; from?: string; to?: string };
-    if (!data.providerId) throw new DomainError('INVALID_ARGUMENT', 'providerId is required');
-    requireProviderRole(request, data.providerId);
-
-    const snapshot = await db
-      .collection('bookings')
-      .where('providerId', '==', data.providerId)
-      .orderBy('startUtc', 'asc')
-      .limit(200)
-      .get();
-
-    return {
-      bookings: snapshot.docs.map((doc) => bookingToView(readDoc<BookingDoc>(doc as QueryDocumentSnapshot))),
-    };
   } catch (error) {
     throw toHttpsError(error);
   }

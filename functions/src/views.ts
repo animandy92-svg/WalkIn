@@ -2,8 +2,11 @@ import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 import type {
   AvailabilityRuleView,
   BookingView,
+  ProviderConfigView,
   ProviderSummaryView,
+  ServiceConfigView,
   ServiceView,
+  StaffConfigView,
   StaffView,
 } from '@walkin/shared';
 import type {
@@ -60,6 +63,21 @@ export function providerToSummary(doc: ProviderDoc): ProviderSummaryView {
   };
 }
 
+export function providerToConfig(doc: ProviderDoc): ProviderConfigView {
+  return {
+    id: doc.id,
+    ownerId: doc.ownerId,
+    name: doc.name,
+    slug: doc.slug,
+    description: doc.description,
+    logoUrl: doc.logoUrl,
+    address: doc.address,
+    timeZone: doc.timeZone,
+    status: doc.status,
+    bookingPolicy: doc.bookingPolicy,
+  };
+}
+
 export function serviceToView(doc: ServiceDoc): ServiceView {
   return {
     id: doc.id,
@@ -76,6 +94,14 @@ export function serviceToView(doc: ServiceDoc): ServiceView {
   };
 }
 
+export function serviceToConfigView(doc: ServiceDoc): ServiceConfigView {
+  return {
+    ...serviceToView(doc),
+    bufferBeforeMinutes: doc.bufferBeforeMinutes,
+    bufferAfterMinutes: doc.bufferAfterMinutes,
+  };
+}
+
 export function staffToView(doc: StaffDoc): StaffView {
   return {
     id: doc.id,
@@ -84,6 +110,14 @@ export function staffToView(doc: StaffDoc): StaffView {
     photoUrl: doc.photoUrl,
     active: doc.active,
     serviceIds: doc.serviceIds,
+  };
+}
+
+export function staffToConfigView(doc: StaffDoc): StaffConfigView {
+  return {
+    ...staffToView(doc),
+    userId: doc.userId,
+    concurrentSlots: doc.concurrentSlots,
   };
 }
 

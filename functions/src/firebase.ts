@@ -19,6 +19,13 @@ if (getApps().length === 0) {
 }
 
 export const db = getFirestore();
+// Configuration writes omit optional fields; Firestore must not reject undefined values.
+db.settings({ ignoreUndefinedProperties: true });
+
+// Contended slot locks need more than Firestore's default 5 attempts. With 20
+// concurrent bookings the losing transactions must retry until they can read
+// the committed lock and return SLOT_UNAVAILABLE instead of surfacing ABORTED.
+export const TRANSACTION_OPTIONS = { maxAttempts: 30 } as const;
 export const auth = getAuth();
 
 /** Messaging is resolved lazily so pure unit tests can import domain modules. */

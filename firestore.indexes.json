@@ -22,6 +22,14 @@
       "queryScope": "COLLECTION",
       "fields": [
         { "fieldPath": "providerId", "order": "ASCENDING" },
+        { "fieldPath": "startUtc", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "providerId", "order": "ASCENDING" },
         { "fieldPath": "status", "order": "ASCENDING" },
         { "fieldPath": "createdAt", "order": "DESCENDING" }
       ]

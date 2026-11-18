@@ -9,6 +9,10 @@ const outputPath = resolve(currentDir, '../schema/walkin.schema.json');
 
 const registry: Record<string, unknown> = {
   BookingView: schemas.bookingViewSchema,
+  ProviderConfigView: schemas.providerConfigViewSchema,
+  ServiceConfigView: schemas.serviceConfigViewSchema,
+  StaffConfigView: schemas.staffConfigViewSchema,
+  AvailabilityRuleView: schemas.availabilityRuleViewSchema,
   SlotView: schemas.slotViewSchema,
   GetAvailabilityRequest: schemas.getAvailabilityRequestSchema,
   GetAvailabilityResponse: schemas.getAvailabilityResponseSchema,
@@ -28,6 +32,11 @@ const registry: Record<string, unknown> = {
   ListPublishedProvidersResponse: schemas.listPublishedProvidersResponseSchema,
   GetProviderDetailsRequest: schemas.getProviderDetailsRequestSchema,
   GetProviderDetailsResponse: schemas.getProviderDetailsResponseSchema,
+  GetProviderDashboardRequest: schemas.getProviderDashboardRequestSchema,
+  GetProviderDashboardResponse: schemas.getProviderDashboardResponseSchema,
+  ListProviderBookingsRequest: schemas.listProviderBookingsRequestSchema,
+  ListProviderBookingsResponse: schemas.listProviderBookingsResponseSchema,
+  DeleteAvailabilityRuleRequest: schemas.deleteAvailabilityRuleRequestSchema,
   GetMyBookingsResponse: schemas.getMyBookingsResponseSchema,
   RegisterFcmTokenRequest: schemas.registerFcmTokenRequestSchema,
   RemoveFcmTokenRequest: schemas.removeFcmTokenRequestSchema,

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { AuthProvider } from '@/components/auth-provider';
+import { ProviderAccessProvider } from '@/components/provider-access';
 import { SiteHeader } from '@/components/site-header';
 import './globals.css';
 
@@ -13,8 +14,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <AuthProvider>
-          <SiteHeader />
-          <main>{children}</main>
+          <ProviderAccessProvider>
+            <SiteHeader />
+            <main>{children}</main>
+          </ProviderAccessProvider>
         </AuthProvider>
       </body>
     </html>

@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useAuth } from './auth-provider';
+import { useProviderAccess } from './provider-access';
 
 export function SiteHeader() {
   const { user } = useAuth();
+  const { providerId } = useProviderAccess();
 
   return (
     <header className="site-header">
@@ -14,6 +16,7 @@ export function SiteHeader() {
       <nav>
         <Link href="/">Providers</Link>
         {user && <Link href="/bookings">My bookings</Link>}
+        {providerId && <Link href="/dashboard">Dashboard</Link>}
         {user ? (
           <button type="button" className="link-button" onClick={() => void signOut(auth)}>
             Sign out

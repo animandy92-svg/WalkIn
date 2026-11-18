@@ -6,7 +6,7 @@ import {
   respondToBookingInTransaction,
 } from '../booking.js';
 import { DomainError } from '../errors.js';
-import { db, enforceAppCheck } from '../firebase.js';
+import { db, enforceAppCheck, TRANSACTION_OPTIONS } from '../firebase.js';
 import type { BookingDoc } from '../types.js';
 import { bookingToView, readDoc } from '../views.js';
 import { parseRequest, requireProviderRole, toHttpsError } from './helpers.js';
@@ -31,7 +31,7 @@ export const respondToBooking = onCall({ enforceAppCheck }, async (request) => {
         actor,
         Timestamp.now(),
       );
-    });
+    }, TRANSACTION_OPTIONS);
 
     return respondToBookingResponseSchema.parse({ booking: bookingToView(updated) });
   } catch (error) {

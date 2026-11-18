@@ -32,6 +32,9 @@ firebase-export-*/
 .packages
 .pub-cache/
 apps/mobile/build/
+# Local SDK installs (not part of this repository)
+flutter/
+flutter_windows_*/
 
 # Editors and OS
 .vscode/

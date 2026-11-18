@@ -110,6 +110,32 @@ export const availabilityRuleViewSchema = z.object({
   reason: z.string().optional(),
 });
 
+/** Editable provider configuration returned to provider staff only. */
+export const providerConfigViewSchema = z.object({
+  id: z.string().min(1),
+  ownerId: z.string().min(1),
+  name: z.string().min(1),
+  slug: z.string().min(1),
+  description: z.string(),
+  logoUrl: z.string().url().optional(),
+  address: addressSchema.optional(),
+  timeZone: z.string().min(1),
+  status: providerStatusSchema,
+  bookingPolicy: bookingPolicySchema,
+});
+
+/** Service configuration with the buffer fields used by the dashboard editor. */
+export const serviceConfigViewSchema = serviceViewSchema.extend({
+  bufferBeforeMinutes: z.number().int().nonnegative(),
+  bufferAfterMinutes: z.number().int().nonnegative(),
+});
+
+/** Staff configuration with fields that are hidden from the public provider view. */
+export const staffConfigViewSchema = staffViewSchema.extend({
+  userId: z.string().optional(),
+  concurrentSlots: z.number().int().positive(),
+});
+
 export const slotViewSchema = z.object({
   startUtc: isoDateTime,
   endUtc: isoDateTime,
@@ -281,3 +307,32 @@ export const removeFcmTokenRequestSchema = z.object({
 });
 
 export const emptyResponseSchema = z.object({});
+
+// ---------- Provider dashboard ----------
+
+export const getProviderDashboardRequestSchema = z.object({
+  providerId: z.string().min(1),
+});
+
+export const getProviderDashboardResponseSchema = z.object({
+  provider: providerConfigViewSchema,
+  services: z.array(serviceConfigViewSchema),
+  staff: z.array(staffConfigViewSchema),
+  availability: z.array(availabilityRuleViewSchema),
+  bookings: z.array(bookingViewSchema),
+});
+
+export const listProviderBookingsRequestSchema = z.object({
+  providerId: z.string().min(1),
+  from: isoDateTime.optional(),
+  to: isoDateTime.optional(),
+});
+
+export const listProviderBookingsResponseSchema = z.object({
+  bookings: z.array(bookingViewSchema),
+});
+
+export const deleteAvailabilityRuleRequestSchema = z.object({
+  providerId: z.string().min(1),
+  ruleId: z.string().min(1),
+});

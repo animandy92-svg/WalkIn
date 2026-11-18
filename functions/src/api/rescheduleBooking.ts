@@ -9,7 +9,7 @@ import {
   prepareBooking,
 } from '../booking.js';
 import { DomainError } from '../errors.js';
-import { db, enforceAppCheck } from '../firebase.js';
+import { db, enforceAppCheck, TRANSACTION_OPTIONS } from '../firebase.js';
 import type { BookingDoc } from '../types.js';
 import { bookingToView, readDoc } from '../views.js';
 import { canReadBooking, parseRequest, requireUid, toHttpsError } from './helpers.js';
@@ -65,7 +65,7 @@ export const rescheduleBooking = onCall({ enforceAppCheck }, async (request) => 
         now,
       );
       return created;
-    });
+    }, TRANSACTION_OPTIONS);
 
     return rescheduleBookingResponseSchema.parse({ booking: bookingToView(newBooking) });
   } catch (error) {

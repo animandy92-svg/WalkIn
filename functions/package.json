@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --format=esm --sourcemap --outfile=dist/index.js --external:firebase-admin --external:firebase-admin/* --external:firebase-functions --external:firebase-functions/* --external:luxon --external:zod",
-    "build:test": "esbuild src/test/*.test.ts --bundle --platform=node --target=node22 --format=esm --outdir=dist/test --external:luxon --external:node:*",
+    "build:test": "esbuild src/test/*.test.ts --bundle --platform=node --target=node22 --format=esm --outdir=dist/test --external:luxon --external:firebase-admin --external:firebase-admin/* --external:firebase-functions --external:firebase-functions/* --external:zod --external:node:*",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "npm run build:test && node --test dist/test/*.test.js",
     "serve": "firebase emulators:start --project demo-walkin --only functions,firestore,auth,storage,pubsub"

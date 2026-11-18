@@ -5,7 +5,7 @@ import {
   bookingRef,
   expireBookingInTransaction,
 } from '../booking.js';
-import { db } from '../firebase.js';
+import { db, TRANSACTION_OPTIONS } from '../firebase.js';
 import type { BookingDoc } from '../types.js';
 import { sendReminderPush } from './reminders.js';
 
@@ -29,7 +29,7 @@ export const expirePendingHolds = onSchedule('every 5 minutes', async () => {
           fresh as QueryDocumentSnapshot,
           now,
         );
-      });
+      }, TRANSACTION_OPTIONS);
     } catch (error) {
       logger.error(`Failed to expire booking ${doc.id}`, error);
     }

@@ -4,14 +4,24 @@ import type {
   CancelBookingResponse,
   CreateBookingRequest,
   CreateBookingResponse,
+  DeleteAvailabilityRuleRequest,
   GetAvailabilityRequest,
   GetAvailabilityResponse,
   GetMyBookingsResponse,
+  GetProviderDashboardRequest,
+  GetProviderDashboardResponse,
   GetProviderDetailsRequest,
   GetProviderDetailsResponse,
   ListPublishedProvidersResponse,
   RescheduleBookingRequest,
   RescheduleBookingResponse,
+  RespondToBookingRequest,
+  RespondToBookingResponse,
+  SaveAvailabilityRequest,
+  SaveProviderRequest,
+  SaveServiceRequest,
+  SaveStaffRequest,
+  SavedEntityResponse,
 } from '@walkin/shared';
 import { functions } from './firebase';
 
@@ -61,4 +71,26 @@ export const api = {
 
   rescheduleBooking: (request: RescheduleBookingRequest) =>
     callApi<RescheduleBookingRequest, RescheduleBookingResponse>('rescheduleBooking', request),
+
+  // Provider dashboard
+  getProviderDashboard: (request: GetProviderDashboardRequest) =>
+    callApi<GetProviderDashboardRequest, GetProviderDashboardResponse>('getProviderDashboard', request),
+
+  respondToBooking: (request: RespondToBookingRequest) =>
+    callApi<RespondToBookingRequest, RespondToBookingResponse>('respondToBooking', request),
+
+  saveProvider: (request: SaveProviderRequest) =>
+    callApi<SaveProviderRequest, SavedEntityResponse>('saveProvider', request),
+
+  saveService: (request: SaveServiceRequest) =>
+    callApi<SaveServiceRequest, SavedEntityResponse>('saveService', request),
+
+  saveStaff: (request: SaveStaffRequest) =>
+    callApi<SaveStaffRequest, SavedEntityResponse>('saveStaff', request),
+
+  saveAvailability: (request: SaveAvailabilityRequest) =>
+    callApi<SaveAvailabilityRequest, SavedEntityResponse>('saveAvailability', request),
+
+  deleteAvailabilityRule: (request: DeleteAvailabilityRuleRequest) =>
+    callApi<DeleteAvailabilityRuleRequest, SavedEntityResponse>('deleteAvailabilityRule', request),
 };
