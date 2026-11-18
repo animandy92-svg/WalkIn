@@ -25,6 +25,10 @@ const registry: Record<string, unknown> = {
   SaveStaffRequest: schemas.saveStaffRequestSchema,
   SaveAvailabilityRequest: schemas.saveAvailabilityRequestSchema,
   SavedEntityResponse: schemas.savedEntityResponseSchema,
+  ListPublishedProvidersResponse: schemas.listPublishedProvidersResponseSchema,
+  GetProviderDetailsRequest: schemas.getProviderDetailsRequestSchema,
+  GetProviderDetailsResponse: schemas.getProviderDetailsResponseSchema,
+  GetMyBookingsResponse: schemas.getMyBookingsResponseSchema,
   RegisterFcmTokenRequest: schemas.registerFcmTokenRequestSchema,
   RemoveFcmTokenRequest: schemas.removeFcmTokenRequestSchema,
 };

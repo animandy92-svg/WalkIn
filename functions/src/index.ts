@@ -1,5 +1,6 @@
 import './firebase.js';
 
+export { listPublishedProviders, getProviderDetails, getMyBookings } from './api/customer.js';
 export { getAvailability } from './api/getAvailability.js';
 export { createBooking } from './api/createBooking.js';
 export { cancelBooking } from './api/cancelBooking.js';

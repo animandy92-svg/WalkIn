@@ -35,6 +35,7 @@ and the desired Cloud Functions region (`us-central1` by default) are configured
 - Node.js 22 or newer (Node 24 is supported locally)
 - npm 11 (npm workspaces are used; pnpm is not required)
 - Firebase CLI 15 or newer (`npm install -g firebase-tools`)
+- Java 11+ for the Firestore emulator (not needed for builds or unit tests)
 - Flutter SDK 3.22+ for `apps/mobile` (not required for web/backend work)
 
 ## Setup

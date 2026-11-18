@@ -11,20 +11,228 @@
 
 body {
   margin: 0;
-  padding: 2rem;
 }
 
 main {
-  max-width: 56rem;
+  max-width: 64rem;
   margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
 }
 
 a {
   color: #1457d8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 code {
   background: #e9ebef;
   border-radius: 0.25rem;
   padding: 0.1rem 0.35rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e3e5e9;
+  background: #fff;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #17191c;
+}
+
+.link-button {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: #1457d8;
+  font: inherit;
+  cursor: pointer;
+}
+
+.page-title {
+  margin-top: 0;
+}
+
+.muted {
+  color: #5f6672;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  display: block;
+  padding: 1.25rem;
+  border: 1px solid #e3e5e9;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: inherit;
+}
+
+.card:hover {
+  border-color: #1457d8;
+  text-decoration: none;
+}
+
+.card h3 {
+  margin: 0 0 0.4rem;
+}
+
+.panel {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid #e3e5e9;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid #c8cdd6;
+  border-radius: 0.5rem;
+  font: inherit;
+  background: #fff;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+button.primary, button.secondary, button.danger, a.primary, a.secondary {
+  display: inline-block;
+  padding: 0.65rem 1rem;
+  border-radius: 0.5rem;
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+button.primary, a.primary {
+  background: #1457d8;
+  color: #fff;
+}
+
+button.primary:hover, a.primary:hover {
+  text-decoration: none;
+}
+
+button.secondary, a.secondary {
+  background: #fff;
+  border-color: #c8cdd6;
+  color: #17191c;
+}
+
+button.danger {
+  background: #fff;
+  border-color: #d6a3a3;
+  color: #9c2020;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.slot {
+  padding: 0.6rem;
+  border: 1px solid #c8cdd6;
+  border-radius: 0.5rem;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.slot.selected {
+  border-color: #1457d8;
+  background: #eef4ff;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #e9ebef;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge.confirmed {
+  background: #dcf5e5;
+  color: #17652f;
+}
+
+.badge.pending {
+  background: #fff1cf;
+  color: #7a5200;
+}
+
+.badge.cancelled, .badge.rejected, .badge.expired {
+  background: #fbe0e0;
+  color: #9c2020;
+}
+
+.error {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #fbe0e0;
+  color: #8a1c1c;
+}
+
+.notice {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #dcf5e5;
+  color: #17652f;
+}
+
+.booking-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }

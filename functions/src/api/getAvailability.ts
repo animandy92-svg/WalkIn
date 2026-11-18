@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { onCall } from 'firebase-functions/v2/https';
 import {
   getAvailabilityRequestSchema,
@@ -23,14 +24,26 @@ export const getAvailability = onCall({ enforceAppCheck }, async (request) => {
   try {
     requireUid(request);
     const input = parseRequest(getAvailabilityRequestSchema, request.data);
-    const fromMs = Date.parse(input.from);
-    const toMs = Date.parse(input.to);
+    const provider = await loadProvider(input.providerId);
+
+    let fromMs: number;
+    let toMs: number;
+    if (input.date) {
+      const startOfDay = DateTime.fromISO(input.date, { zone: provider.timeZone }).startOf('day');
+      if (!startOfDay.isValid) throw new DomainError('INVALID_ARGUMENT', 'Invalid date');
+      fromMs = startOfDay.toUTC().toMillis();
+      toMs = startOfDay.plus({ days: 1 }).toUTC().toMillis();
+    } else if (input.from && input.to) {
+      fromMs = Date.parse(input.from);
+      toMs = Date.parse(input.to);
+    } else {
+      throw new DomainError('INVALID_ARGUMENT', 'Provide a date or a UTC range');
+    }
 
     if (!Number.isFinite(fromMs) || !Number.isFinite(toMs) || toMs <= fromMs || toMs - fromMs > MAX_RANGE_MS) {
       throw new DomainError('INVALID_ARGUMENT', 'Requested range must be between 0 and 31 days');
     }
 
-    const provider = await loadProvider(input.providerId);
     const service = await loadService(input.providerId, input.serviceId);
     if (service.providerId !== provider.id) {
       throw new DomainError('NOT_FOUND', 'Service does not belong to provider');

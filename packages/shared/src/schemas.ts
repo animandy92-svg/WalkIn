@@ -143,8 +143,10 @@ export const getAvailabilityRequestSchema = z.object({
   providerId: z.string().min(1),
   serviceId: z.string().min(1),
   staffId: z.string().optional(),
-  from: isoDateTime,
-  to: isoDateTime,
+  // Supply either a provider-local date or an explicit UTC range.
+  date: localDate.optional(),
+  from: isoDateTime.optional(),
+  to: isoDateTime.optional(),
 });
 
 export const getAvailabilityResponseSchema = z.object({
@@ -247,6 +249,25 @@ export const saveAvailabilityRequestSchema = z.object({
 
 export const savedEntityResponseSchema = z.object({
   id: z.string().min(1),
+});
+
+export const listPublishedProvidersResponseSchema = z.object({
+  providers: z.array(providerSummaryViewSchema),
+});
+
+export const getProviderDetailsRequestSchema = z.object({
+  slug: z.string().min(1).optional(),
+  providerId: z.string().min(1).optional(),
+});
+
+export const getProviderDetailsResponseSchema = z.object({
+  provider: providerSummaryViewSchema,
+  services: z.array(serviceViewSchema),
+  staff: z.array(staffViewSchema),
+});
+
+export const getMyBookingsResponseSchema = z.object({
+  bookings: z.array(bookingViewSchema),
 });
 
 export const registerFcmTokenRequestSchema = z.object({

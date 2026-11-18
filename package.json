@@ -15,7 +15,7 @@
     "emulators": "firebase emulators:start --project demo-walkin",
     "emulators:stop": "firebase emulators:exec --project demo-walkin --only firestore,functions,auth,storage,pubsub -- \"echo stopped\"",
     "test": "npm run test -w @walkin/shared && npm run test -w @walkin/functions",
-    "typecheck": "npm run typecheck --workspaces --if-present",
+    "typecheck": "npm run build -w @walkin/shared && npm run typecheck --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "schema:generate": "npm run schema:generate -w @walkin/shared"
   },

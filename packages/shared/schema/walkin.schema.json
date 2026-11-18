@@ -1,0 +1,1659 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WalkIn callable API",
+  "description": "Contract shared by the Next.js website, Flutter app, and Cloud Functions. Source: packages/shared/src/schemas.ts",
+  "definitions": {
+    "BookingView": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "serviceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "staffId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "customerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "startUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endUtc": {
+          "$ref": "#/definitions/BookingView/properties/startUtc"
+        },
+        "providerTimeZone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "confirmed",
+            "rejected",
+            "expired",
+            "cancelled",
+            "completed"
+          ]
+        },
+        "confirmationMode": {
+          "type": "string",
+          "enum": [
+            "instant",
+            "approval"
+          ]
+        },
+        "priceSnapshot": {
+          "type": "object",
+          "properties": {
+            "amountCents": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3
+            },
+            "serviceName": {
+              "type": "string",
+              "minLength": 1
+            },
+            "durationMinutes": {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "amountCents",
+            "currency",
+            "serviceName",
+            "durationMinutes"
+          ],
+          "additionalProperties": false
+        },
+        "holdExpiresAt": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BookingView/properties/startUtc"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "customerNote": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "web",
+            "mobile"
+          ]
+        },
+        "createdAt": {
+          "$ref": "#/definitions/BookingView/properties/startUtc"
+        },
+        "updatedAt": {
+          "$ref": "#/definitions/BookingView/properties/startUtc"
+        }
+      },
+      "required": [
+        "id",
+        "providerId",
+        "serviceId",
+        "staffId",
+        "customerId",
+        "startUtc",
+        "endUtc",
+        "providerTimeZone",
+        "status",
+        "confirmationMode",
+        "priceSnapshot",
+        "holdExpiresAt",
+        "source",
+        "createdAt",
+        "updatedAt"
+      ],
+      "additionalProperties": false
+    },
+    "SlotView": {
+      "type": "object",
+      "properties": {
+        "startUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endUtc": {
+          "$ref": "#/definitions/SlotView/properties/startUtc"
+        },
+        "localLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "staffId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "remaining": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "capacity": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "startUtc",
+        "endUtc",
+        "localLabel",
+        "staffId",
+        "remaining",
+        "capacity"
+      ],
+      "additionalProperties": false
+    },
+    "GetAvailabilityRequest": {
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "serviceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "staffId": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "$ref": "#/definitions/GetAvailabilityRequest/properties/from"
+        }
+      },
+      "required": [
+        "providerId",
+        "serviceId"
+      ],
+      "additionalProperties": false
+    },
+    "GetAvailabilityResponse": {
+      "type": "object",
+      "properties": {
+        "slots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "startUtc": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endUtc": {
+                "$ref": "#/definitions/GetAvailabilityResponse/properties/slots/items/properties/startUtc"
+              },
+              "localLabel": {
+                "type": "string",
+                "minLength": 1
+              },
+              "staffId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "remaining": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "capacity": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "startUtc",
+              "endUtc",
+              "localLabel",
+              "staffId",
+              "remaining",
+              "capacity"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "slots"
+      ],
+      "additionalProperties": false
+    },
+    "CreateBookingRequest": {
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "serviceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "staffId": {
+          "type": "string"
+        },
+        "startUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 128
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "web",
+            "mobile"
+          ]
+        }
+      },
+      "required": [
+        "providerId",
+        "serviceId",
+        "startUtc",
+        "idempotencyKey",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "CreateBookingResponse": {
+      "type": "object",
+      "properties": {
+        "booking": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "providerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "serviceId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "staffId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "customerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "startUtc": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "endUtc": {
+              "$ref": "#/definitions/CreateBookingResponse/properties/booking/properties/startUtc"
+            },
+            "providerTimeZone": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "confirmed",
+                "rejected",
+                "expired",
+                "cancelled",
+                "completed"
+              ]
+            },
+            "confirmationMode": {
+              "type": "string",
+              "enum": [
+                "instant",
+                "approval"
+              ]
+            },
+            "priceSnapshot": {
+              "type": "object",
+              "properties": {
+                "amountCents": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 3
+                },
+                "serviceName": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "durationMinutes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "required": [
+                "amountCents",
+                "currency",
+                "serviceName",
+                "durationMinutes"
+              ],
+              "additionalProperties": false
+            },
+            "holdExpiresAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/CreateBookingResponse/properties/booking/properties/startUtc"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "customerNote": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "enum": [
+                "web",
+                "mobile"
+              ]
+            },
+            "createdAt": {
+              "$ref": "#/definitions/CreateBookingResponse/properties/booking/properties/startUtc"
+            },
+            "updatedAt": {
+              "$ref": "#/definitions/CreateBookingResponse/properties/booking/properties/startUtc"
+            }
+          },
+          "required": [
+            "id",
+            "providerId",
+            "serviceId",
+            "staffId",
+            "customerId",
+            "startUtc",
+            "endUtc",
+            "providerTimeZone",
+            "status",
+            "confirmationMode",
+            "priceSnapshot",
+            "holdExpiresAt",
+            "source",
+            "createdAt",
+            "updatedAt"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "booking"
+      ],
+      "additionalProperties": false
+    },
+    "CancelBookingRequest": {
+      "type": "object",
+      "properties": {
+        "bookingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "required": [
+        "bookingId"
+      ],
+      "additionalProperties": false
+    },
+    "CancelBookingResponse": {
+      "type": "object",
+      "properties": {
+        "booking": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "providerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "serviceId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "staffId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "customerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "startUtc": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "endUtc": {
+              "$ref": "#/definitions/CancelBookingResponse/properties/booking/properties/startUtc"
+            },
+            "providerTimeZone": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "confirmed",
+                "rejected",
+                "expired",
+                "cancelled",
+                "completed"
+              ]
+            },
+            "confirmationMode": {
+              "type": "string",
+              "enum": [
+                "instant",
+                "approval"
+              ]
+            },
+            "priceSnapshot": {
+              "type": "object",
+              "properties": {
+                "amountCents": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 3
+                },
+                "serviceName": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "durationMinutes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "required": [
+                "amountCents",
+                "currency",
+                "serviceName",
+                "durationMinutes"
+              ],
+              "additionalProperties": false
+            },
+            "holdExpiresAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/CancelBookingResponse/properties/booking/properties/startUtc"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "customerNote": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "enum": [
+                "web",
+                "mobile"
+              ]
+            },
+            "createdAt": {
+              "$ref": "#/definitions/CancelBookingResponse/properties/booking/properties/startUtc"
+            },
+            "updatedAt": {
+              "$ref": "#/definitions/CancelBookingResponse/properties/booking/properties/startUtc"
+            }
+          },
+          "required": [
+            "id",
+            "providerId",
+            "serviceId",
+            "staffId",
+            "customerId",
+            "startUtc",
+            "endUtc",
+            "providerTimeZone",
+            "status",
+            "confirmationMode",
+            "priceSnapshot",
+            "holdExpiresAt",
+            "source",
+            "createdAt",
+            "updatedAt"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "booking"
+      ],
+      "additionalProperties": false
+    },
+    "RescheduleBookingRequest": {
+      "type": "object",
+      "properties": {
+        "bookingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "startUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "idempotencyKey": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "bookingId",
+        "startUtc",
+        "idempotencyKey"
+      ],
+      "additionalProperties": false
+    },
+    "RescheduleBookingResponse": {
+      "type": "object",
+      "properties": {
+        "booking": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "providerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "serviceId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "staffId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "customerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "startUtc": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "endUtc": {
+              "$ref": "#/definitions/RescheduleBookingResponse/properties/booking/properties/startUtc"
+            },
+            "providerTimeZone": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "confirmed",
+                "rejected",
+                "expired",
+                "cancelled",
+                "completed"
+              ]
+            },
+            "confirmationMode": {
+              "type": "string",
+              "enum": [
+                "instant",
+                "approval"
+              ]
+            },
+            "priceSnapshot": {
+              "type": "object",
+              "properties": {
+                "amountCents": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 3
+                },
+                "serviceName": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "durationMinutes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "required": [
+                "amountCents",
+                "currency",
+                "serviceName",
+                "durationMinutes"
+              ],
+              "additionalProperties": false
+            },
+            "holdExpiresAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/RescheduleBookingResponse/properties/booking/properties/startUtc"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "customerNote": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "enum": [
+                "web",
+                "mobile"
+              ]
+            },
+            "createdAt": {
+              "$ref": "#/definitions/RescheduleBookingResponse/properties/booking/properties/startUtc"
+            },
+            "updatedAt": {
+              "$ref": "#/definitions/RescheduleBookingResponse/properties/booking/properties/startUtc"
+            }
+          },
+          "required": [
+            "id",
+            "providerId",
+            "serviceId",
+            "staffId",
+            "customerId",
+            "startUtc",
+            "endUtc",
+            "providerTimeZone",
+            "status",
+            "confirmationMode",
+            "priceSnapshot",
+            "holdExpiresAt",
+            "source",
+            "createdAt",
+            "updatedAt"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "booking"
+      ],
+      "additionalProperties": false
+    },
+    "RespondToBookingRequest": {
+      "type": "object",
+      "properties": {
+        "bookingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "confirm",
+            "reject"
+          ]
+        }
+      },
+      "required": [
+        "bookingId",
+        "action"
+      ],
+      "additionalProperties": false
+    },
+    "RespondToBookingResponse": {
+      "type": "object",
+      "properties": {
+        "booking": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "providerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "serviceId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "staffId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "customerId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "startUtc": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "endUtc": {
+              "$ref": "#/definitions/RespondToBookingResponse/properties/booking/properties/startUtc"
+            },
+            "providerTimeZone": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "confirmed",
+                "rejected",
+                "expired",
+                "cancelled",
+                "completed"
+              ]
+            },
+            "confirmationMode": {
+              "type": "string",
+              "enum": [
+                "instant",
+                "approval"
+              ]
+            },
+            "priceSnapshot": {
+              "type": "object",
+              "properties": {
+                "amountCents": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 3
+                },
+                "serviceName": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "durationMinutes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "required": [
+                "amountCents",
+                "currency",
+                "serviceName",
+                "durationMinutes"
+              ],
+              "additionalProperties": false
+            },
+            "holdExpiresAt": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/RespondToBookingResponse/properties/booking/properties/startUtc"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "customerNote": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "enum": [
+                "web",
+                "mobile"
+              ]
+            },
+            "createdAt": {
+              "$ref": "#/definitions/RespondToBookingResponse/properties/booking/properties/startUtc"
+            },
+            "updatedAt": {
+              "$ref": "#/definitions/RespondToBookingResponse/properties/booking/properties/startUtc"
+            }
+          },
+          "required": [
+            "id",
+            "providerId",
+            "serviceId",
+            "staffId",
+            "customerId",
+            "startUtc",
+            "endUtc",
+            "providerTimeZone",
+            "status",
+            "confirmationMode",
+            "priceSnapshot",
+            "holdExpiresAt",
+            "source",
+            "createdAt",
+            "updatedAt"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "booking"
+      ],
+      "additionalProperties": false
+    },
+    "SaveProviderRequest": {
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "timeZone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "logoUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "line1": {
+              "type": "string",
+              "minLength": 1
+            },
+            "line2": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string",
+              "minLength": 1
+            },
+            "region": {
+              "type": "string"
+            },
+            "postalCode": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string",
+              "minLength": 2
+            }
+          },
+          "required": [
+            "line1",
+            "city",
+            "country"
+          ],
+          "additionalProperties": false
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "published"
+          ]
+        },
+        "bookingPolicy": {
+          "type": "object",
+          "properties": {
+            "leadTimeMinutes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cancelCutoffHours": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rescheduleCutoffHours": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "pendingHoldMinutes": {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            },
+            "defaultConcurrentSlots": {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "leadTimeMinutes",
+            "cancelCutoffHours",
+            "rescheduleCutoffHours",
+            "pendingHoldMinutes",
+            "defaultConcurrentSlots"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "name",
+        "slug",
+        "description",
+        "timeZone",
+        "status",
+        "bookingPolicy"
+      ],
+      "additionalProperties": false
+    },
+    "SaveServiceRequest": {
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "serviceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "durationMinutes": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "price": {
+          "type": "object",
+          "properties": {
+            "amountCents": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3
+            }
+          },
+          "required": [
+            "amountCents",
+            "currency"
+          ],
+          "additionalProperties": false
+        },
+        "confirmationMode": {
+          "type": "string",
+          "enum": [
+            "instant",
+            "approval"
+          ]
+        },
+        "capacityScope": {
+          "type": "string",
+          "enum": [
+            "staff",
+            "provider"
+          ]
+        },
+        "staffIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "bufferBeforeMinutes": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "bufferAfterMinutes": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "active": {
+          "type": "boolean",
+          "default": true
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "providerId",
+        "name",
+        "description",
+        "durationMinutes",
+        "price",
+        "confirmationMode",
+        "capacityScope",
+        "staffIds"
+      ],
+      "additionalProperties": false
+    },
+    "SaveStaffRequest": {
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "staffId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "userId": {
+          "type": "string"
+        },
+        "photoUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "active": {
+          "type": "boolean",
+          "default": true
+        },
+        "serviceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "concurrentSlots": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "default": 1
+        }
+      },
+      "required": [
+        "providerId",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "SaveAvailabilityRequest": {
+      "type": "object",
+      "properties": {
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ruleId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "weekly",
+            "exception"
+          ]
+        },
+        "staffId": {
+          "type": "string"
+        },
+        "dayOfWeek": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        },
+        "startLocal": {
+          "type": "string",
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+        },
+        "endLocal": {
+          "$ref": "#/definitions/SaveAvailabilityRequest/properties/startLocal"
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "intervals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "startLocal": {
+                "$ref": "#/definitions/SaveAvailabilityRequest/properties/startLocal"
+              },
+              "endLocal": {
+                "$ref": "#/definitions/SaveAvailabilityRequest/properties/startLocal"
+              }
+            },
+            "required": [
+              "startLocal",
+              "endLocal"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "required": [
+        "providerId",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "SavedEntityResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "ListPublishedProvidersResponse": {
+      "type": "object",
+      "properties": {
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "slug": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string"
+              },
+              "logoUrl": {
+                "type": "string",
+                "format": "uri"
+              },
+              "timeZone": {
+                "type": "string",
+                "minLength": 1
+              },
+              "city": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "slug",
+              "description",
+              "timeZone"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "providers"
+      ],
+      "additionalProperties": false
+    },
+    "GetProviderDetailsRequest": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "minLength": 1
+        },
+        "providerId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "GetProviderDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "slug": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": {
+              "type": "string"
+            },
+            "logoUrl": {
+              "type": "string",
+              "format": "uri"
+            },
+            "timeZone": {
+              "type": "string",
+              "minLength": 1
+            },
+            "city": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "slug",
+            "description",
+            "timeZone"
+          ],
+          "additionalProperties": false
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "providerId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string"
+              },
+              "durationMinutes": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "price": {
+                "type": "object",
+                "properties": {
+                  "amountCents": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "currency": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 3
+                  }
+                },
+                "required": [
+                  "amountCents",
+                  "currency"
+                ],
+                "additionalProperties": false
+              },
+              "confirmationMode": {
+                "type": "string",
+                "enum": [
+                  "instant",
+                  "approval"
+                ]
+              },
+              "capacityScope": {
+                "type": "string",
+                "enum": [
+                  "staff",
+                  "provider"
+                ]
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "imageUrl": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "id",
+              "providerId",
+              "name",
+              "description",
+              "durationMinutes",
+              "price",
+              "confirmationMode",
+              "capacityScope",
+              "active"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "staff": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "providerId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "photoUrl": {
+                "type": "string",
+                "format": "uri"
+              },
+              "active": {
+                "type": "boolean"
+              },
+              "serviceIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "providerId",
+              "name",
+              "active",
+              "serviceIds"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "provider",
+        "services",
+        "staff"
+      ],
+      "additionalProperties": false
+    },
+    "GetMyBookingsResponse": {
+      "type": "object",
+      "properties": {
+        "bookings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "providerId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "serviceId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "staffId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "customerId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "startUtc": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "endUtc": {
+                "$ref": "#/definitions/GetMyBookingsResponse/properties/bookings/items/properties/startUtc"
+              },
+              "providerTimeZone": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "confirmed",
+                  "rejected",
+                  "expired",
+                  "cancelled",
+                  "completed"
+                ]
+              },
+              "confirmationMode": {
+                "type": "string",
+                "enum": [
+                  "instant",
+                  "approval"
+                ]
+              },
+              "priceSnapshot": {
+                "type": "object",
+                "properties": {
+                  "amountCents": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "currency": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 3
+                  },
+                  "serviceName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "durationMinutes": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "required": [
+                  "amountCents",
+                  "currency",
+                  "serviceName",
+                  "durationMinutes"
+                ],
+                "additionalProperties": false
+              },
+              "holdExpiresAt": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/GetMyBookingsResponse/properties/bookings/items/properties/startUtc"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "customerNote": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "web",
+                  "mobile"
+                ]
+              },
+              "createdAt": {
+                "$ref": "#/definitions/GetMyBookingsResponse/properties/bookings/items/properties/startUtc"
+              },
+              "updatedAt": {
+                "$ref": "#/definitions/GetMyBookingsResponse/properties/bookings/items/properties/startUtc"
+              }
+            },
+            "required": [
+              "id",
+              "providerId",
+              "serviceId",
+              "staffId",
+              "customerId",
+              "startUtc",
+              "endUtc",
+              "providerTimeZone",
+              "status",
+              "confirmationMode",
+              "priceSnapshot",
+              "holdExpiresAt",
+              "source",
+              "createdAt",
+              "updatedAt"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "bookings"
+      ],
+      "additionalProperties": false
+    },
+    "RegisterFcmTokenRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "minLength": 1
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "web",
+            "ios",
+            "android"
+          ]
+        }
+      },
+      "required": [
+        "token",
+        "platform"
+      ],
+      "additionalProperties": false
+    },
+    "RemoveFcmTokenRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "token"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

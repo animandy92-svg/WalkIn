@@ -1,4 +1,4 @@
-import { Timestamp } from 'firebase-admin/firestore';
+import { Timestamp, type QueryDocumentSnapshot } from 'firebase-admin/firestore';
 import { logger } from 'firebase-functions';
 import { onSchedule } from 'firebase-functions/v2/scheduler';
 import {
@@ -23,7 +23,12 @@ export const expirePendingHolds = onSchedule('every 5 minutes', async () => {
       await db.runTransaction(async (transaction) => {
         const fresh = await transaction.get(bookingRef(doc.id));
         if (!fresh.exists) return;
-        await expireBookingInTransaction(transaction, bookingRef(doc.id), fresh, now);
+        await expireBookingInTransaction(
+          transaction,
+          bookingRef(doc.id),
+          fresh as QueryDocumentSnapshot,
+          now,
+        );
       });
     } catch (error) {
       logger.error(`Failed to expire booking ${doc.id}`, error);
