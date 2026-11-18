@@ -3,6 +3,10 @@ analyzer:
     - build/**
     - android/**
     - ios/**
+  # Flutter 3.50 deprecated the umbrella material.dart import while the
+  # replacement package is still rolling out; keep analysis focused on our code.
+  errors:
+    deprecated_member_use: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:

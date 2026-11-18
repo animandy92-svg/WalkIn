@@ -24,7 +24,9 @@ export async function closeAdmin() {
 }
 
 export async function clearData() {
-  const collections = ['providers', 'bookings', 'slotLocks', 'idempotencyKeys', 'auditLogs'];
+  const collections = [
+    'providers', 'bookings', 'slotLocks', 'idempotencyKeys', 'notificationLogs', 'auditLogs',
+  ];
   for (const name of collections) {
     const snapshot = await db.collection(name).get();
     if (snapshot.empty) continue;
@@ -103,4 +105,28 @@ export async function callFunction(name, data, idToken) {
   }
 
   return body.result;
+}
+
+/** Invoke a v2 scheduled function through its emulator HTTP endpoint. */
+export async function runScheduled(name) {
+  // v2 scheduled functions are deployed as HTTP functions with an emulator
+  // instance suffix (e.g. expirePendingHolds-0).
+  for (const functionName of [name, `${name}-0`]) {
+    const url = `${FUNCTIONS_URL}/${PROJECT_ID}/${REGION}/${functionName}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-cloudscheduler-jobname': name,
+        'x-cloudscheduler-scheduletime': new Date().toISOString(),
+      },
+      body: '{}',
+      signal: AbortSignal.timeout(180_000),
+    });
+    if (response.ok) return;
+    if (response.status !== 404) {
+      throw new Error(`Scheduled function ${functionName} failed: ${response.status} ${await response.text()}`);
+    }
+  }
+  throw new Error(`Scheduled function ${name} was not found in the emulator`);
 }

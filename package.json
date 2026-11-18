@@ -16,17 +16,25 @@
     "emulators": "firebase emulators:start --project demo-walkin",
     "emulators:test": "node scripts/emulator/start.mjs",
     "emulator:seed": "node scripts/emulator/seed.mjs",
-    "test:emulator": "node --test scripts/emulator/booking-concurrency.test.mjs",
+    "test:emulator": "node --test --test-concurrency=1 \"scripts/emulator/*.test.mjs\" \"scripts/rules/*.test.mjs\"",
+    "test:rules": "node --test \"scripts/rules/*.test.mjs\"",
+    "test:mobile:integration": "flutter test integration_test",
     "emulators:stop": "firebase emulators:exec --project demo-walkin --only firestore,functions,auth,storage,pubsub -- \"echo stopped\"",
     "test": "npm run test -w @walkin/shared && npm run test -w @walkin/functions",
     "typecheck": "npm run build -w @walkin/shared && npm run typecheck --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "schema:generate": "npm run schema:generate -w @walkin/shared"
+    "schema:generate": "npm run schema:generate -w @walkin/shared",
+    "schema:check": "npm run schema:check -w @walkin/shared",
+    "monitoring:setup": "node scripts/monitoring/setup-alerts.mjs"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@dataconnect/generated": "file:src/dataconnect-generated"
   }
 }

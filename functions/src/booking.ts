@@ -6,6 +6,7 @@ import {
   type Transaction,
 } from 'firebase-admin/firestore';
 import type { BookingSource } from '@walkin/shared';
+import { writeAuditLogInTransaction } from './audit.js';
 import { ANY_STAFF_KEY, buildSlotCandidates, type SlotCandidate } from './availability.js';
 import { DomainError } from './errors.js';
 import { db } from './firebase.js';
@@ -243,22 +244,42 @@ export async function createBookingInTransaction(
   }
 
   transaction.set(idempotencyRef, { bookingId: ref.id, createdAt: now });
+  writeAuditLogInTransaction(transaction, {
+    action: 'booking.created',
+    resourceType: 'booking',
+    resourceId: ref.id,
+    actor: prepared.customerId,
+    providerId: prepared.provider.id,
+    bookingId: ref.id,
+    metadata: {
+      status,
+      source: prepared.source,
+      idempotencyKey: prepared.idempotencyKey,
+    },
+  });
   return booking;
 }
 
-export async function releaseLocks(
+/**
+ * Firestore requires every read in a transaction to happen before the first
+ * write, so lock snapshots are loaded separately and released afterwards.
+ */
+export async function readLocksForRelease(
   transaction: Transaction,
   booking: BookingDoc,
-  now: Timestamp,
-): Promise<void> {
-  const refs = booking.slotKeys.map(lockRef);
-  if (refs.length === 0) return;
-  const snapshots = await transaction.getAll(...refs);
+): Promise<QueryDocumentSnapshot[]> {
+  if (booking.slotKeys.length === 0) return [];
+  return await transaction.getAll(...booking.slotKeys.map(lockRef)) as QueryDocumentSnapshot[];
+}
 
-  for (const [index, snapshot] of snapshots.entries()) {
-    const ref = refs[index];
-    if (snapshot?.exists && ref) {
-      transaction.update(ref, { occupied: FieldValue.increment(-1), updatedAt: now });
+export function releaseLocks(
+  transaction: Transaction,
+  snapshots: QueryDocumentSnapshot[],
+  now: Timestamp,
+): void {
+  for (const snapshot of snapshots) {
+    if (snapshot?.exists) {
+      transaction.update(snapshot.ref, { occupied: FieldValue.increment(-1), updatedAt: now });
     }
   }
 }
@@ -277,6 +298,9 @@ export async function cancelBookingInTransaction(
     throw new DomainError('POLICY_VIOLATION', 'Booking cannot be cancelled in its current state');
   }
 
+  const shouldRelease = booking.status === 'pending' || booking.status === 'confirmed';
+  const lockSnapshots = shouldRelease ? await readLocksForRelease(transaction, booking) : [];
+
   const updates = {
     status: 'cancelled' as const,
     cancelledAt: now,
@@ -286,9 +310,17 @@ export async function cancelBookingInTransaction(
   };
   transaction.update(ref, updates);
 
-  if (booking.status === 'pending' || booking.status === 'confirmed') {
-    await releaseLocks(transaction, booking, now);
-  }
+  if (shouldRelease) releaseLocks(transaction, lockSnapshots, now);
+
+  writeAuditLogInTransaction(transaction, {
+    action: 'booking.cancelled',
+    resourceType: 'booking',
+    resourceId: booking.id,
+    actor,
+    providerId: booking.providerId,
+    bookingId: booking.id,
+    metadata: { reason },
+  });
 
   return { ...booking, ...updates };
 }
@@ -305,11 +337,13 @@ export async function respondToBookingInTransaction(
   if (booking.status !== 'pending') {
     throw new DomainError('POLICY_VIOLATION', 'Only pending bookings can be reviewed');
   }
-  if (booking.holdExpiresAt && now.toMillis() > booking.holdExpiresAt.toMillis()) {
+  if (!booking.holdExpiresAt || now.toMillis() > booking.holdExpiresAt.toMillis()) {
     throw new DomainError('HOLD_EXPIRED', 'The hold on this booking has expired');
   }
 
   const status = (action === 'confirm' ? 'confirmed' : 'rejected') as 'confirmed' | 'rejected';
+  const lockSnapshots = action === 'reject' ? await readLocksForRelease(transaction, booking) : [];
+
   const updates = {
     status,
     holdExpiresAt: null,
@@ -318,7 +352,17 @@ export async function respondToBookingInTransaction(
   };
   transaction.update(ref, updates);
 
-  if (action === 'reject') await releaseLocks(transaction, booking, now);
+  if (action === 'reject') releaseLocks(transaction, lockSnapshots, now);
+
+  writeAuditLogInTransaction(transaction, {
+    action: action === 'confirm' ? 'booking.confirmed' : 'booking.rejected',
+    resourceType: 'booking',
+    resourceId: booking.id,
+    actor,
+    providerId: booking.providerId,
+    bookingId: booking.id,
+    metadata: { source: booking.source },
+  });
 
   return { ...booking, ...updates };
 }
@@ -331,7 +375,11 @@ export async function expireBookingInTransaction(
 ): Promise<BookingDoc> {
   const booking = readDoc<BookingDoc>(snapshot);
   if (booking.status !== 'pending') return booking;
+  // The scheduler's query is only a pre-filter. Re-check inside the
+  // transaction so a stale queued doc cannot expire a refreshed hold.
+  if (!booking.holdExpiresAt || booking.holdExpiresAt.toMillis() > now.toMillis()) return booking;
 
+  const lockSnapshots = await readLocksForRelease(transaction, booking);
   const updates = {
     status: 'expired' as const,
     holdExpiresAt: null,
@@ -339,7 +387,17 @@ export async function expireBookingInTransaction(
     timeline: [...booking.timeline, { status: 'expired' as const, at: now, actor: 'system' }],
   };
   transaction.update(ref, updates);
-  await releaseLocks(transaction, booking, now);
+  releaseLocks(transaction, lockSnapshots, now);
+
+  writeAuditLogInTransaction(transaction, {
+    action: 'booking.expired',
+    resourceType: 'booking',
+    resourceId: booking.id,
+    actor: 'system',
+    providerId: booking.providerId,
+    bookingId: booking.id,
+    metadata: { holdExpiresAt: booking.holdExpiresAt?.toDate().toISOString() ?? null },
+  });
 
   return { ...booking, ...updates };
 }

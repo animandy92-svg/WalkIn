@@ -8,6 +8,7 @@ import {
   listProviderBookingsResponseSchema,
   savedEntityResponseSchema,
 } from '@walkin/shared';
+import { writeAuditLog } from '../audit.js';
 import { DomainError } from '../errors.js';
 import { db, enforceAppCheck } from '../firebase.js';
 import type {
@@ -90,12 +91,19 @@ export const listProviderBookings = onCall({ enforceAppCheck }, async (request) 
 export const deleteAvailabilityRule = onCall({ enforceAppCheck }, async (request) => {
   try {
     const input = parseRequest(deleteAvailabilityRuleRequestSchema, request.data);
-    requireProviderRole(request, input.providerId, ['owner', 'admin']);
+    const actor = requireProviderRole(request, input.providerId, ['owner', 'admin']);
 
     const ref = db.collection('providers').doc(input.providerId).collection('availability').doc(input.ruleId);
     const snapshot = await ref.get();
     if (!snapshot.exists) throw new DomainError('NOT_FOUND', 'Availability rule not found');
     await ref.delete();
+    await writeAuditLog({
+      action: 'availability.deleted',
+      resourceType: 'availability',
+      resourceId: input.ruleId,
+      actor,
+      providerId: input.providerId,
+    });
 
     return savedEntityResponseSchema.parse({ id: input.ruleId });
   } catch (error) {

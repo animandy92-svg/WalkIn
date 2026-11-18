@@ -63,6 +63,8 @@ export type AvailabilityRuleDoc = Omit<AvailabilityRuleView, 'id' | 'providerId'
   effectiveUntil?: Timestamp | null;
 };
 
+export type ReminderWindow = '24h' | '1h';
+
 export interface BookingDoc {
   id: string;
   providerId: string;
@@ -85,6 +87,18 @@ export interface BookingDoc {
   cancellationReason?: string;
   timeline: Array<{ status: BookingStatus | 'created'; at: Timestamp; actor: string }>;
   idempotencyKey: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+/** Backend-only, deterministic per booking + window so reminders cannot be sent twice. */
+export interface NotificationLogDoc {
+  id: string;
+  bookingId: string;
+  providerId: string;
+  customerId: string;
+  window: ReminderWindow;
+  status: 'claimed' | 'sent' | 'failed';
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }

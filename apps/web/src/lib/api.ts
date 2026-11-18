@@ -13,6 +13,8 @@ import type {
   GetProviderDetailsRequest,
   GetProviderDetailsResponse,
   ListPublishedProvidersResponse,
+  RegisterFcmTokenRequest,
+  RemoveFcmTokenRequest,
   RescheduleBookingRequest,
   RescheduleBookingResponse,
   RespondToBookingRequest,
@@ -93,4 +95,10 @@ export const api = {
 
   deleteAvailabilityRule: (request: DeleteAvailabilityRuleRequest) =>
     callApi<DeleteAvailabilityRuleRequest, SavedEntityResponse>('deleteAvailabilityRule', request),
+
+  registerFcmToken: (request: RegisterFcmTokenRequest) =>
+    callApi<RegisterFcmTokenRequest, Record<string, never>>('registerFcmToken', request),
+
+  removeFcmToken: (request: RemoveFcmTokenRequest) =>
+    callApi<RemoveFcmTokenRequest, Record<string, never>>('removeFcmToken', request),
 };

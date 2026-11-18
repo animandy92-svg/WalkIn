@@ -1,0 +1,40 @@
+type User @table {
+  email: String!
+  fullName: String!
+  role: String!
+  phoneNumber: String
+  profileImage: String
+}
+
+type Business @table {
+  name: String!
+  category: String!
+  address: String!
+  owner: User!
+  description: String
+  websiteUrl: String
+  imageUrl: String
+}
+
+type Service @table {
+  title: String!
+  price: Float!
+  durationMinutes: Int!
+  business: Business!
+}
+
+type Appointment @table {
+  startTime: Timestamp!
+  endTime: Timestamp!
+  status: String!
+  notes: String
+  customer: User!
+  service: Service!
+}
+
+type Review @table {
+  rating: Int!
+  comment: String
+  business: Business!
+  author: User!
+}

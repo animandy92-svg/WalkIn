@@ -1,0 +1,158 @@
+mutation CreateUser @auth(level: USER) {
+  user_insert(data: {
+    id_expr: "auth.uid",
+    email: "user@example.com",
+    fullName: "John Doe",
+    role: "customer"
+  })
+}
+
+mutation UpdateUser @auth(level: USER) {
+  user_update(key: {id_expr: "auth.uid"}, data: {fullName: "John Updated"})
+}
+
+mutation DeleteUser @auth(level: USER) {
+  user_delete(key: {id_expr: "auth.uid"})
+}
+
+query GetCurrentUser @auth(level: USER) {
+  user(key: {id_expr: "auth.uid"}) {
+    email
+    fullName
+  }
+}
+
+query ListUsers @auth(level: PUBLIC, insecureReason: "Publicly listing user names for a directory service") {
+  users {
+    fullName
+    role
+  }
+}
+
+mutation CreateBusiness @auth(level: USER) {
+  business_insert(data: {
+    name: "My Coffee Shop",
+    category: "Cafe",
+    address: "123 Main St",
+    owner: {id_expr: "auth.uid"}
+  })
+}
+
+mutation UpdateBusiness($id: UUID!) @auth(level: USER) {
+  business_update(key: {id: $id}, data: {description: "Updated description"})
+}
+
+mutation DeleteBusiness($id: UUID!) @auth(level: USER) {
+  business_delete(key: {id: $id})
+}
+
+query GetBusiness($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly viewable business profiles") {
+  business(id: $id) {
+    name
+    address
+    owner { fullName }
+  }
+}
+
+query ListBusinesses @auth(level: PUBLIC, insecureReason: "Publicly viewable list of businesses") {
+  businesses {
+    name
+    category
+  }
+}
+
+mutation CreateService($businessId: UUID!) @auth(level: USER) {
+  service_insert(data: {
+    title: "Haircut",
+    price: 30.0,
+    durationMinutes: 45,
+    business: {id: $businessId}
+  })
+}
+
+mutation UpdateService($id: UUID!) @auth(level: USER) {
+  service_update(key: {id: $id}, data: {price: 35.0})
+}
+
+mutation DeleteService($id: UUID!) @auth(level: USER) {
+  service_delete(key: {id: $id})
+}
+
+query GetService($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly viewable services") {
+  service(id: $id) {
+    title
+    price
+  }
+}
+
+query ListServices @auth(level: PUBLIC, insecureReason: "Publicly viewable list of services") {
+  services {
+    title
+    business { name }
+  }
+}
+
+mutation CreateAppointment($serviceId: UUID!, $startTime: Timestamp!, $endTime: Timestamp!) @auth(level: USER) {
+  appointment_insert(data: {
+    startTime: $startTime,
+    endTime: $endTime,
+    status: "confirmed",
+    customer: {id_expr: "auth.uid"},
+    service: {id: $serviceId}
+  })
+}
+
+mutation UpdateAppointment($id: UUID!, $status: String!) @auth(level: USER) {
+  appointment_update(key: {id: $id}, data: {status: $status})
+}
+
+mutation DeleteAppointment($id: UUID!) @auth(level: USER) {
+  appointment_delete(key: {id: $id})
+}
+
+query GetMyAppointment($id: UUID!) @auth(level: USER) {
+  appointment(key: {id: $id}) {
+    startTime
+    status
+    service { title }
+  }
+}
+
+query ListMyAppointments @auth(level: USER) {
+  appointments(where: {customer: {id: {eq_expr: "auth.uid"}}}) {
+    startTime
+    status
+  }
+}
+
+mutation CreateReview($businessId: UUID!, $rating: Int!) @auth(level: USER) {
+  review_insert(data: {
+    rating: $rating,
+    comment: "Great place!",
+    business: {id: $businessId},
+    author: {id_expr: "auth.uid"}
+  })
+}
+
+mutation UpdateReview($id: UUID!, $comment: String!) @auth(level: USER) {
+  review_update(key: {id: $id}, data: {comment: $comment})
+}
+
+mutation DeleteReview($id: UUID!) @auth(level: USER) {
+  review_delete(key: {id: $id})
+}
+
+query GetReview($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly visible business reviews") {
+  review(id: $id) {
+    rating
+    comment
+    author { fullName }
+  }
+}
+
+query ListReviews($businessId: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly visible business reviews") {
+  reviews(where: {businessId: {eq: $businessId}}) {
+    rating
+    comment
+  }
+}

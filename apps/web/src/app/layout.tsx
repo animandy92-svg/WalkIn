@@ -7,6 +7,8 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'WalkIn',
   description: 'Book local services and manage your appointments.',
+  manifest: '/manifest.json',
+  icons: { icon: '/icons/walkin-icon.svg' },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

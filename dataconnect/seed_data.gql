@@ -1,0 +1,24 @@
+mutation SeedAllData @transaction {
+  user_insertMany(data: [
+    { email: "alice@example.com", fullName: "Alice Smith", role: "Customer" },
+    { email: "bob@example.com", fullName: "Bob Jones", role: "BusinessOwner" },
+    { email: "charlie@example.com", fullName: "Charlie Brown", role: "Customer" }
+  ])
+  business_insertMany(data: [
+    { name: "Tech Repairs", category: "Electronics", address: "123 Main St", owner: { id: "00000000-0000-0000-0000-000000000002" } },
+    { name: "Coffee Haven", category: "Cafe", address: "456 Oak St", owner: { id: "00000000-0000-0000-0000-000000000002" } }
+  ])
+  service_insertMany(data: [
+    { title: "Screen Replacement", price: 99.99, durationMinutes: 60, business: { id: "00000000-0000-0000-0000-000000000001" } },
+    { title: "Battery Swap", price: 49.99, durationMinutes: 30, business: { id: "00000000-0000-0000-0000-000000000001" } },
+    { title: "Latte Art Class", price: 25.00, durationMinutes: 45, business: { id: "00000000-0000-0000-0000-000000000002" } }
+  ])
+  appointment_insertMany(data: [
+    { startTime: "2023-12-01T10:00:00Z", endTime: "2023-12-01T11:00:00Z", status: "Scheduled", customer: { id: "00000000-0000-0000-0000-000000000001" }, service: { id: "00000000-0000-0000-0000-000000000001" } },
+    { startTime: "2023-12-01T14:00:00Z", endTime: "2023-12-01T14:30:00Z", status: "Completed", customer: { id: "00000000-0000-0000-0000-000000000003" }, service: { id: "00000000-0000-0000-0000-000000000002" } }
+  ])
+  review_insertMany(data: [
+    { rating: 5, comment: "Great service!", business: { id: "00000000-0000-0000-0000-000000000001" }, author: { id: "00000000-0000-0000-0000-000000000001" } },
+    { rating: 4, comment: "Friendly staff.", business: { id: "00000000-0000-0000-0000-000000000002" }, author: { id: "00000000-0000-0000-0000-000000000003" } }
+  ])
+}

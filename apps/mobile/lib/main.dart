@@ -1,27 +1,49 @@
-// ignore_for_file: deprecated_member_use
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-import 'firebase_options.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import 'core/auth.dart';
+import 'core/firebase.dart';
+import 'core/notifications.dart';
+import 'core/router.dart';
+import 'core/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const WalkInApp());
+  await initializeFirebase();
+  runApp(const ProviderScope(child: WalkInApp()));
 }
 
-class WalkInApp extends StatelessWidget {
-  const WalkInApp({super.key});
+class WalkInApp extends ConsumerWidget {
+  const WalkInApp({super.key, this.router});
+
+  /// Allows widget tests to supply a router without touching Firebase.
+  final GoRouter? router;
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final GoRouter effectiveRouter = router ?? ref.watch(routerProvider);
+
+    ref.listen<AsyncValue<AppUser?>>(authStateProvider, (previous, next) {
+      final user = next.value;
+      if (user != null && previous?.value?.uid != user.uid) {
+        unawaited(ref.read(notificationControllerProvider).registerCurrentToken());
+      }
+    });
+
+    ref.listen<AsyncValue<String>>(bookingLinkProvider, (_, next) {
+      final bookingId = next.value;
+      if (bookingId != null) {
+        effectiveRouter.go('/bookings/$bookingId');
+      }
+    });
+
+    return MaterialApp.router(
       title: 'WalkIn',
-      theme: ThemeData(colorSchemeSeed: const Color(0xFF1457D8), useMaterial3: true),
-      home: Scaffold(
-        appBar: AppBar(title: const Text('WalkIn')),
-        body: const Center(child: Text('Booking experience coming in milestone 4.')),
-      ),
+      theme: walkInTheme,
+      routerConfig: effectiveRouter,
     );
   }
 }

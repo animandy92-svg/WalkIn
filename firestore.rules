@@ -107,6 +107,11 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    match /notificationLogs/{logId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
     // Everything else is denied by default.
     match /{document=**} {
       allow read, write: if false;

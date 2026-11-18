@@ -76,6 +76,10 @@ npm test               # shared + functions unit tests
 npm run schema:generate # regenerate JSON Schema for Dart clients
 npm run emulators      # Auth, Firestore, Functions, Storage, Pub/Sub, Emulator UI
 npm run dev:web        # Next.js dev server
+npm run test:rules     # Firestore rules tests (emulators must be running)
+npm run test:emulator  # backend + rules emulator integration tests
+npm run schema:check   # verify generated JSON Schema is current
+npm run monitoring:setup # create log metrics, alert policies and email channel
 ```
 
 Emulator ports: Auth 9099, Firestore 8080, Functions 5001, Storage 9199, Pub/Sub 8085, UI 4000.
@@ -99,12 +103,40 @@ uses `firebase.test.json` to start only the three emulators the tests need. The 
 emulator's default 10s discovery window. The integration tests create a provider with instant and
 approval services, then verify that 20 parallel bookings for one single-capacity slot produce
 exactly one booking, that idempotency keys are honoured, and that only the owning provider's staff
-can review a pending booking. The seed script **clears all data in the demo project** before writing
-fixtures.
+can review a pending booking. The same gate now also verifies booking audit records and the
+Firestore rules (unauthenticated reads, customer/provider/admin access, cross-provider denial,
+backend-only writes, user profile restrictions, and audit/notification log access). The seed script
+**clears all data in the demo project** before writing fixtures.
+
+### Flutter emulator integration test
+
+The Flutter customer flow has an emulator-backed integration test in
+`apps/mobile/integration_test/booking_flow_test.dart`. It requires a running Android emulator or
+iOS simulator because the Firebase plugins need real platform channels:
+
+```powershell
+npm run emulators:test
+npm run emulator:seed
+cd apps\mobile
+C:\Users\anima\flutter-sdk\bin\flutter.bat test integration_test
+# Android emulator only, when emulators are not on localhost:
+C:\Users\anima\flutter-sdk\bin\flutter.bat test integration_test --dart-define=WALKIN_EMULATOR_HOST=10.0.2.2
+```
+
+### Notifications and monitoring
+
+The web app registers FCM tokens after an explicit **Enable notifications** click in the header.
+Set `NEXT_PUBLIC_FIREBASE_VAPID_KEY` and deploy `apps/web/public/firebase-messaging-sw.js` with the
+site. Background notification clicks open `/bookings?bookingId=...`. App Check is initialized for
+deployed builds when `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` is set; emulator mode skips App Check.
+
+For production alerting, set `ALERT_EMAIL` (or an existing `MONITORING_NOTIFICATION_CHANNEL`) and
+run `npm run monitoring:setup`. This creates logs-based metrics for push failures, unhandled
+callable errors, and scheduled-job errors, then attaches alert policies to the email channel.
 
 ## Implementation status
 
-Milestones 0–3 are in place:
+Milestones 0–5 are in place:
 
 - npm workspaces and shared schema package
 - Firestore/Storage rules, composite indexes, Firebase emulator config
@@ -115,10 +147,14 @@ Milestones 0–3 are in place:
   booking, and my-bookings with cancel/reschedule
 - Next.js provider dashboard: overview, day/week calendar, pending approval queue (confirm/reject),
   services, hours/availability, staff, and profile/policy settings editors
-- Flutter source scaffold
+- Flutter customer app: explore, provider detail, availability, booking, bookings, notifications,
+  FCM token registration, and booking deep links
+- Booking integrity hardening: hold expiry re-checks, lock release ordering, idempotent reminders,
+  failure propagation, audit records, and security-rule coverage
+- Web push notifications and App Check initialization for deployed callables
+- Monitoring setup for push, callable, and scheduler failures
 
-Milestones 4–5 (Flutter app, notifications, and launch hardening) follow the plan in
-`C:\Users\anima\.opencode\plan\walkin-implementation-plan.md`.
+The original scope is in `C:\Users\anima\.opencode\plan\walkin-implementation-plan.md`.
 
 ## Notes
 

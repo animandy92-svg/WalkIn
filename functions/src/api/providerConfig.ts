@@ -1,5 +1,6 @@
 import { Timestamp } from 'firebase-admin/firestore';
 import { onCall } from 'firebase-functions/v2/https';
+import { writeAuditLog } from '../audit.js';
 import {
   savedEntityResponseSchema,
   saveAvailabilityRequestSchema,
@@ -65,6 +66,15 @@ export const saveProvider = onCall({ enforceAppCheck }, async (request) => {
       );
     }
 
+    await writeAuditLog({
+      action: previous ? 'provider.updated' : 'provider.created',
+      resourceType: 'provider',
+      resourceId: ref.id,
+      actor: uid,
+      providerId: ref.id,
+      metadata: { status: input.status },
+    });
+
     return savedEntityResponseSchema.parse({ id: ref.id });
   } catch (error) {
     throw toHttpsError(error);
@@ -74,7 +84,7 @@ export const saveProvider = onCall({ enforceAppCheck }, async (request) => {
 export const saveService = onCall({ enforceAppCheck }, async (request) => {
   try {
     const input = parseRequest(saveServiceRequestSchema, request.data);
-    requireProviderRole(request, input.providerId, ['owner', 'admin']);
+    const actor = requireProviderRole(request, input.providerId, ['owner', 'admin']);
     const now = Timestamp.now();
     const ref = input.serviceId
       ? providerDocumentRef(input.providerId).collection('services').doc(input.serviceId)
@@ -99,6 +109,14 @@ export const saveService = onCall({ enforceAppCheck }, async (request) => {
     if (!previous) data.createdAt = now;
 
     await ref.set(data, { merge: true });
+    await writeAuditLog({
+      action: previous ? 'service.updated' : 'service.created',
+      resourceType: 'service',
+      resourceId: ref.id,
+      actor,
+      providerId: input.providerId,
+      metadata: { active: input.active, confirmationMode: input.confirmationMode },
+    });
     return savedEntityResponseSchema.parse({ id: ref.id });
   } catch (error) {
     throw toHttpsError(error);
@@ -108,7 +126,7 @@ export const saveService = onCall({ enforceAppCheck }, async (request) => {
 export const saveStaff = onCall({ enforceAppCheck }, async (request) => {
   try {
     const input = parseRequest(saveStaffRequestSchema, request.data);
-    requireProviderRole(request, input.providerId, ['owner', 'admin']);
+    const actor = requireProviderRole(request, input.providerId, ['owner', 'admin']);
     const now = Timestamp.now();
     const ref = input.staffId
       ? providerDocumentRef(input.providerId).collection('staff').doc(input.staffId)
@@ -137,6 +155,15 @@ export const saveStaff = onCall({ enforceAppCheck }, async (request) => {
       );
     }
 
+    await writeAuditLog({
+      action: previous ? 'staff.updated' : 'staff.created',
+      resourceType: 'staff',
+      resourceId: ref.id,
+      actor,
+      providerId: input.providerId,
+      metadata: { active: input.active, linkedUserId: input.userId ?? null },
+    });
+
     return savedEntityResponseSchema.parse({ id: ref.id });
   } catch (error) {
     throw toHttpsError(error);
@@ -146,7 +173,7 @@ export const saveStaff = onCall({ enforceAppCheck }, async (request) => {
 export const saveAvailability = onCall({ enforceAppCheck }, async (request) => {
   try {
     const input = parseRequest(saveAvailabilityRequestSchema, request.data);
-    requireProviderRole(request, input.providerId, ['owner', 'admin']);
+    const actor = requireProviderRole(request, input.providerId, ['owner', 'admin']);
 
     if (input.kind === 'weekly' && (input.dayOfWeek === undefined || !input.startLocal || !input.endLocal)) {
       throw new DomainError('INVALID_ARGUMENT', 'Weekly rules need a day, start, and end time');
@@ -175,6 +202,14 @@ export const saveAvailability = onCall({ enforceAppCheck }, async (request) => {
     };
 
     await ref.set(data, { merge: true });
+    await writeAuditLog({
+      action: previous ? 'availability.updated' : 'availability.created',
+      resourceType: 'availability',
+      resourceId: ref.id,
+      actor,
+      providerId: input.providerId,
+      metadata: { kind: input.kind, date: input.date ?? null, staffId: input.staffId ?? null },
+    });
     return savedEntityResponseSchema.parse({ id: ref.id });
   } catch (error) {
     throw toHttpsError(error);
