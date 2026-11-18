@@ -1,3 +1,21 @@
 runConfig:
   runtime: nodejs22
   maxInstances: 2
+
+env:
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyAuwgLevnvKQ8ydRRaZp4suP2ZYLVtZg7c
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: walkin-123.firebaseapp.com
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: walkin-123
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: walkin-123.firebasestorage.app
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "987378429822"
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:987378429822:web:4332662be02f6b78188d2f
+  - variable: NEXT_PUBLIC_USE_EMULATORS
+    value: "false"
+  - variable: NEXT_PUBLIC_FUNCTIONS_REGION
+    value: us-central1
