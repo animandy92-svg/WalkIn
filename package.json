@@ -5,6 +5,7 @@
   "description": "WalkIn booking platform — one Firebase backend, Next.js web/dashboard, Flutter mobile",
   "workspaces": [
     "apps/web",
+    "apps/web-v2",
     "functions",
     "packages/shared"
   ],
@@ -25,7 +26,9 @@
     "lint": "npm run lint --workspaces --if-present",
     "schema:generate": "npm run schema:generate -w @walkin/shared",
     "schema:check": "npm run schema:check -w @walkin/shared",
-    "monitoring:setup": "node scripts/monitoring/setup-alerts.mjs"
+    "monitoring:setup": "node scripts/monitoring/setup-alerts.mjs",
+    "dev:web-v2": "npm run dev -w @walkin/web-v2",
+    "emulator:seed:campus": "node scripts/emulator/seed-campus.mjs"
   },
   "engines": {
     "node": ">=22"

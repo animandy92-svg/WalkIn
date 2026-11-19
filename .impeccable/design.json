@@ -1,0 +1,852 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-19T01:47:16.228Z",
+  "title": "Design System: WalkIn",
+  "extensions": {
+    "colorMeta": {
+      "felt": {
+        "role": "neutral",
+        "displayName": "Notice-Board Felt",
+        "canonical": "#1c5845",
+        "oklch": "oklch(41.6% 0.070 168.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.026 168.5)",
+          "oklch(26.0% 0.046 168.5)",
+          "oklch(37.0% 0.061 168.5)",
+          "oklch(48.0% 0.068 168.5)",
+          "oklch(59.0% 0.069 168.5)",
+          "oklch(70.0% 0.063 168.5)",
+          "oklch(82.0% 0.050 168.5)",
+          "oklch(95.0% 0.026 168.5)"
+        ]
+      },
+      "felt-deep": {
+        "role": "neutral",
+        "displayName": "Deep Felt",
+        "canonical": "#134232",
+        "oklch": "oklch(34.2% 0.058 166.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.021 166.9)",
+          "oklch(26.0% 0.039 166.9)",
+          "oklch(37.0% 0.051 166.9)",
+          "oklch(48.0% 0.057 166.9)",
+          "oklch(59.0% 0.058 166.9)",
+          "oklch(70.0% 0.053 166.9)",
+          "oklch(82.0% 0.041 166.9)",
+          "oklch(95.0% 0.021 166.9)"
+        ]
+      },
+      "felt-raised": {
+        "role": "neutral",
+        "displayName": "Raised Felt",
+        "canonical": "#236650",
+        "oklch": "oklch(46.1% 0.077 167.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.028 167.9)",
+          "oklch(26.0% 0.051 167.9)",
+          "oklch(37.0% 0.067 167.9)",
+          "oklch(48.0% 0.075 167.9)",
+          "oklch(59.0% 0.076 167.9)",
+          "oklch(70.0% 0.070 167.9)",
+          "oklch(82.0% 0.055 167.9)",
+          "oklch(95.0% 0.028 167.9)"
+        ]
+      },
+      "on-felt": {
+        "role": "neutral",
+        "displayName": "Chalk",
+        "canonical": "#eef6f1",
+        "oklch": "oklch(96.6% 0.011 158.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 158.8)",
+          "oklch(26.0% 0.007 158.8)",
+          "oklch(37.0% 0.009 158.8)",
+          "oklch(48.0% 0.011 158.8)",
+          "oklch(59.0% 0.011 158.8)",
+          "oklch(70.0% 0.010 158.8)",
+          "oklch(82.0% 0.008 158.8)",
+          "oklch(95.0% 0.004 158.8)"
+        ]
+      },
+      "on-felt-2": {
+        "role": "neutral",
+        "displayName": "Faded Chalk",
+        "canonical": "#c3ddd1",
+        "oklch": "oklch(87.5% 0.032 166.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.012 166.1)",
+          "oklch(26.0% 0.021 166.1)",
+          "oklch(37.0% 0.028 166.1)",
+          "oklch(48.0% 0.032 166.1)",
+          "oklch(59.0% 0.032 166.1)",
+          "oklch(70.0% 0.029 166.1)",
+          "oklch(82.0% 0.023 166.1)",
+          "oklch(95.0% 0.012 166.1)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Photocopy White",
+        "canonical": "#fbfbf9",
+        "oklch": "oklch(98.8% 0.003 106.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 0)",
+          "oklch(26.0% 0.002 0)",
+          "oklch(37.0% 0.002 106.4)",
+          "oklch(48.0% 0.003 106.4)",
+          "oklch(59.0% 0.003 106.4)",
+          "oklch(70.0% 0.002 106.4)",
+          "oklch(82.0% 0.002 0)",
+          "oklch(95.0% 0.001 0)"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Copier Grey",
+        "canonical": "#eff0ec",
+        "oklch": "oklch(95.3% 0.005 117.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.004 117.9)",
+          "oklch(37.0% 0.005 117.9)",
+          "oklch(48.0% 0.005 117.9)",
+          "oklch(59.0% 0.005 117.9)",
+          "oklch(70.0% 0.005 117.9)",
+          "oklch(82.0% 0.004 117.9)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "paper-3": {
+        "role": "neutral",
+        "displayName": "Shaded Copy",
+        "canonical": "#e2e4de",
+        "oklch": "oklch(91.6% 0.008 121.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.003 121.6)",
+          "oklch(26.0% 0.006 121.6)",
+          "oklch(37.0% 0.007 121.6)",
+          "oklch(48.0% 0.008 121.6)",
+          "oklch(59.0% 0.008 121.6)",
+          "oklch(70.0% 0.008 121.6)",
+          "oklch(82.0% 0.006 121.6)",
+          "oklch(95.0% 0.003 121.6)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Toner Black",
+        "canonical": "#161616",
+        "oklch": "oklch(20.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 0)",
+          "oklch(26.0% 0.000 0)",
+          "oklch(37.0% 0.000 0)",
+          "oklch(48.0% 0.000 0)",
+          "oklch(59.0% 0.000 0)",
+          "oklch(70.0% 0.000 0)",
+          "oklch(82.0% 0.000 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Toner 2",
+        "canonical": "#3f4143",
+        "oklch": "oklch(37.4% 0.004 247.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 0)",
+          "oklch(26.0% 0.003 247.9)",
+          "oklch(37.0% 0.004 247.9)",
+          "oklch(48.0% 0.004 247.9)",
+          "oklch(59.0% 0.004 247.9)",
+          "oklch(70.0% 0.004 247.9)",
+          "oklch(82.0% 0.003 247.9)",
+          "oklch(95.0% 0.002 0)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Toner 3",
+        "canonical": "#5f6265",
+        "oklch": "oklch(49.5% 0.006 247.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 247.9)",
+          "oklch(26.0% 0.004 247.9)",
+          "oklch(37.0% 0.005 247.9)",
+          "oklch(48.0% 0.006 247.9)",
+          "oklch(59.0% 0.006 247.9)",
+          "oklch(70.0% 0.006 247.9)",
+          "oklch(82.0% 0.004 247.9)",
+          "oklch(95.0% 0.002 247.9)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Toner Rule",
+        "canonical": "#161616",
+        "oklch": "oklch(20.0% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 0)",
+          "oklch(26.0% 0.000 0)",
+          "oklch(37.0% 0.000 0)",
+          "oklch(48.0% 0.000 0)",
+          "oklch(59.0% 0.000 0)",
+          "oklch(70.0% 0.000 0)",
+          "oklch(82.0% 0.000 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "rule-soft": {
+        "role": "neutral",
+        "displayName": "Pencil Grey",
+        "canonical": "#b9bcb5",
+        "oklch": "oklch(79.1% 0.010 125.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.004 125.7)",
+          "oklch(26.0% 0.007 125.7)",
+          "oklch(37.0% 0.009 125.7)",
+          "oklch(48.0% 0.010 125.7)",
+          "oklch(59.0% 0.010 125.7)",
+          "oklch(70.0% 0.009 125.7)",
+          "oklch(82.0% 0.007 125.7)",
+          "oklch(95.0% 0.004 125.7)"
+        ]
+      },
+      "hl-yellow": {
+        "role": "primary",
+        "displayName": "Highlighter Yellow",
+        "canonical": "#fff04a",
+        "oklch": "oklch(93.9% 0.176 104.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.065 104.1)",
+          "oklch(26.0% 0.118 104.1)",
+          "oklch(37.0% 0.154 104.1)",
+          "oklch(48.0% 0.173 104.1)",
+          "oklch(59.0% 0.175 104.1)",
+          "oklch(70.0% 0.161 104.1)",
+          "oklch(82.0% 0.126 104.1)",
+          "oklch(95.0% 0.065 104.1)"
+        ]
+      },
+      "hl-wash": {
+        "role": "primary",
+        "displayName": "Highlighter Wash",
+        "canonical": "#fffbd0",
+        "oklch": "oklch(98.0% 0.056 103.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.020 103.0)",
+          "oklch(26.0% 0.037 103.0)",
+          "oklch(37.0% 0.049 103.0)",
+          "oklch(48.0% 0.055 103.0)",
+          "oklch(59.0% 0.055 103.0)",
+          "oklch(70.0% 0.051 103.0)",
+          "oklch(82.0% 0.040 103.0)",
+          "oklch(95.0% 0.020 103.0)"
+        ]
+      },
+      "hl-blue": {
+        "role": "secondary",
+        "displayName": "Barber Blue",
+        "canonical": "#8fd5ff",
+        "oklch": "oklch(84.2% 0.092 235.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.034 235.7)",
+          "oklch(26.0% 0.061 235.7)",
+          "oklch(37.0% 0.080 235.7)",
+          "oklch(48.0% 0.090 235.7)",
+          "oklch(59.0% 0.091 235.7)",
+          "oklch(70.0% 0.084 235.7)",
+          "oklch(82.0% 0.065 235.7)",
+          "oklch(95.0% 0.034 235.7)"
+        ]
+      },
+      "hl-pink": {
+        "role": "secondary",
+        "displayName": "Salon Pink",
+        "canonical": "#ff92c8",
+        "oklch": "oklch(79.1% 0.145 349.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.053 349.8)",
+          "oklch(26.0% 0.097 349.8)",
+          "oklch(37.0% 0.126 349.8)",
+          "oklch(48.0% 0.142 349.8)",
+          "oklch(59.0% 0.144 349.8)",
+          "oklch(70.0% 0.132 349.8)",
+          "oklch(82.0% 0.103 349.8)",
+          "oklch(95.0% 0.053 349.8)"
+        ]
+      },
+      "hl-green": {
+        "role": "secondary",
+        "displayName": "Laundry Green",
+        "canonical": "#8eef9f",
+        "oklch": "oklch(87.2% 0.144 148.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.053 148.5)",
+          "oklch(26.0% 0.096 148.5)",
+          "oklch(37.0% 0.125 148.5)",
+          "oklch(48.0% 0.141 148.5)",
+          "oklch(59.0% 0.143 148.5)",
+          "oklch(70.0% 0.131 148.5)",
+          "oklch(82.0% 0.102 148.5)",
+          "oklch(95.0% 0.053 148.5)"
+        ]
+      },
+      "hl-orange": {
+        "role": "secondary",
+        "displayName": "Print Orange",
+        "canonical": "#ffbd59",
+        "oklch": "oklch(84.1% 0.138 75.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.051 75.1)",
+          "oklch(26.0% 0.092 75.1)",
+          "oklch(37.0% 0.120 75.1)",
+          "oklch(48.0% 0.135 75.1)",
+          "oklch(59.0% 0.137 75.1)",
+          "oklch(70.0% 0.126 75.1)",
+          "oklch(82.0% 0.098 75.1)",
+          "oklch(95.0% 0.051 75.1)"
+        ]
+      },
+      "hl-lilac": {
+        "role": "secondary",
+        "displayName": "Other Lilac",
+        "canonical": "#d6b8ff",
+        "oklch": "oklch(83.3% 0.102 303.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.038 303.6)",
+          "oklch(26.0% 0.068 303.6)",
+          "oklch(37.0% 0.089 303.6)",
+          "oklch(48.0% 0.100 303.6)",
+          "oklch(59.0% 0.102 303.6)",
+          "oklch(70.0% 0.093 303.6)",
+          "oklch(82.0% 0.073 303.6)",
+          "oklch(95.0% 0.038 303.6)"
+        ]
+      },
+      "ink-violet": {
+        "role": "tertiary",
+        "displayName": "Confirmed Violet",
+        "canonical": "#5a35a8",
+        "oklch": "oklch(44.2% 0.174 292.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.064 292.6)",
+          "oklch(26.0% 0.116 292.6)",
+          "oklch(37.0% 0.152 292.6)",
+          "oklch(48.0% 0.171 292.6)",
+          "oklch(59.0% 0.173 292.6)",
+          "oklch(70.0% 0.158 292.6)",
+          "oklch(82.0% 0.124 292.6)",
+          "oklch(95.0% 0.064 292.6)"
+        ]
+      },
+      "ink-blue": {
+        "role": "tertiary",
+        "displayName": "Received Blue",
+        "canonical": "#1d47b3",
+        "oklch": "oklch(44.1% 0.178 264.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.065 264.1)",
+          "oklch(26.0% 0.119 264.1)",
+          "oklch(37.0% 0.155 264.1)",
+          "oklch(48.0% 0.174 264.1)",
+          "oklch(59.0% 0.177 264.1)",
+          "oklch(70.0% 0.162 264.1)",
+          "oklch(82.0% 0.127 264.1)",
+          "oklch(95.0% 0.065 264.1)"
+        ]
+      },
+      "ink-red": {
+        "role": "tertiary",
+        "displayName": "Declined Red",
+        "canonical": "#c11f2e",
+        "oklch": "oklch(52.4% 0.194 23.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.071 23.4)",
+          "oklch(26.0% 0.130 23.4)",
+          "oklch(37.0% 0.169 23.4)",
+          "oklch(48.0% 0.191 23.4)",
+          "oklch(59.0% 0.193 23.4)",
+          "oklch(70.0% 0.177 23.4)",
+          "oklch(82.0% 0.138 23.4)",
+          "oklch(95.0% 0.071 23.4)"
+        ]
+      },
+      "ink-green": {
+        "role": "tertiary",
+        "displayName": "Ready Green",
+        "canonical": "#17723a",
+        "oklch": "oklch(48.7% 0.120 151.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.044 151.1)",
+          "oklch(26.0% 0.080 151.1)",
+          "oklch(37.0% 0.105 151.1)",
+          "oklch(48.0% 0.118 151.1)",
+          "oklch(59.0% 0.120 151.1)",
+          "oklch(70.0% 0.110 151.1)",
+          "oklch(82.0% 0.086 151.1)",
+          "oklch(95.0% 0.044 151.1)"
+        ]
+      },
+      "ink-black": {
+        "role": "tertiary",
+        "displayName": "Done Black",
+        "canonical": "#2a2a2a",
+        "oklch": "oklch(28.5% 0.000 0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 0)",
+          "oklch(26.0% 0.000 0)",
+          "oklch(37.0% 0.000 0)",
+          "oklch(48.0% 0.000 0)",
+          "oklch(59.0% 0.000 0)",
+          "oklch(70.0% 0.000 0)",
+          "oklch(82.0% 0.000 0)",
+          "oklch(95.0% 0.000 0)"
+        ]
+      },
+      "pen": {
+        "role": "tertiary",
+        "displayName": "Ballpoint Blue",
+        "canonical": "#1b3a9b",
+        "oklch": "oklch(39.3% 0.162 265.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.060 265.5)",
+          "oklch(26.0% 0.108 265.5)",
+          "oklch(37.0% 0.141 265.5)",
+          "oklch(48.0% 0.159 265.5)",
+          "oklch(59.0% 0.161 265.5)",
+          "oklch(70.0% 0.148 265.5)",
+          "oklch(82.0% 0.115 265.5)",
+          "oklch(95.0% 0.060 265.5)"
+        ]
+      },
+      "pin": {
+        "role": "tertiary",
+        "displayName": "Pushpin Red",
+        "canonical": "#d63a3a",
+        "oklch": "oklch(58.4% 0.193 25.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.071 25.5)",
+          "oklch(26.0% 0.129 25.5)",
+          "oklch(37.0% 0.168 25.5)",
+          "oklch(48.0% 0.189 25.5)",
+          "oklch(59.0% 0.192 25.5)",
+          "oklch(70.0% 0.176 25.5)",
+          "oklch(82.0% 0.137 25.5)",
+          "oklch(95.0% 0.071 25.5)"
+        ]
+      },
+      "pin-yellow": {
+        "role": "tertiary",
+        "displayName": "Pushpin Yellow",
+        "canonical": "#e6b800",
+        "oklch": "oklch(80.1% 0.164 90.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.060 90.5)",
+          "oklch(26.0% 0.109 90.5)",
+          "oklch(37.0% 0.143 90.5)",
+          "oklch(48.0% 0.160 90.5)",
+          "oklch(59.0% 0.163 90.5)",
+          "oklch(70.0% 0.149 90.5)",
+          "oklch(82.0% 0.117 90.5)",
+          "oklch(95.0% 0.060 90.5)"
+        ]
+      },
+      "pin-blue": {
+        "role": "tertiary",
+        "displayName": "Pushpin Blue",
+        "canonical": "#2f6fd6",
+        "oklch": "oklch(55.7% 0.172 259.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.063 259.7)",
+          "oklch(26.0% 0.115 259.7)",
+          "oklch(37.0% 0.150 259.7)",
+          "oklch(48.0% 0.168 259.7)",
+          "oklch(59.0% 0.170 259.7)",
+          "oklch(70.0% 0.156 259.7)",
+          "oklch(82.0% 0.122 259.7)",
+          "oklch(95.0% 0.063 259.7)"
+        ]
+      },
+      "pin-green": {
+        "role": "tertiary",
+        "displayName": "Pushpin Green",
+        "canonical": "#2a9d55",
+        "oklch": "oklch(61.6% 0.147 151.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.054 151.3)",
+          "oklch(26.0% 0.098 151.3)",
+          "oklch(37.0% 0.128 151.3)",
+          "oklch(48.0% 0.144 151.3)",
+          "oklch(59.0% 0.146 151.3)",
+          "oklch(70.0% 0.134 151.3)",
+          "oklch(82.0% 0.105 151.3)",
+          "oklch(95.0% 0.054 151.3)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Sheet titles in Archivo expanded black caps: the board title, a shop name, My bookings. Uppercase."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section notices on the front door and dashboard page titles. Uppercase; Chalk when set on felt."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sentence-case headings inside sheets, slips and drawers."
+      },
+      "time": {
+        "displayName": "Time",
+        "purpose": "Large lowercase times on booking rows and request slips; day tabs use the same voice at 800 and 1.375rem."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text, typed in Arimo with tabular figures."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Intro paragraph under a sheet title, in Toner 2, max 60ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels, nav links, choices; 800 for section labels and table heads."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Supporting lines and footnotes in Toner 3."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Shop-type highlighter tags."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Uppercase button labels in Archivo at 115% width."
+      },
+      "stamp": {
+        "displayName": "Stamp",
+        "purpose": "Uppercase status stamps; 0.75rem small, 1.6rem large."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sheet",
+        "value": "0 1px 1px rgb(0 0 0 / 0.22), 0 10px 22px -8px rgb(0 0 0 / 0.5)",
+        "purpose": "Every pinned paper sheet on the felt."
+      },
+      {
+        "name": "slip",
+        "value": "0 1px 2px rgb(0 0 0 / 0.2), 0 16px 34px -10px rgb(0 0 0 / 0.45)",
+        "purpose": "Booking slip and dashboard drawers, over the felt scrim rgb(10 30 22 / 0.42)."
+      },
+      {
+        "name": "desk-edge",
+        "value": "-10px 0 30px -16px rgb(0 0 0 / 0.55)",
+        "purpose": "Dashboard paper work area against the felt rail."
+      },
+      {
+        "name": "pin",
+        "value": "drop-shadow(1px 3px 2px rgb(0 0 0 / 0.35))",
+        "purpose": "Pushpin heads (CSS filter)."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 3px solid #fff04a; outline-offset: 2px; box-shadow: 0 0 0 2px #161616",
+        "purpose": "Global :focus-visible treatment."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 3px #fff04a",
+        "purpose": "Input, select and textarea focus ring, with fill #fffde0."
+      },
+      {
+        "name": "pending-ring",
+        "value": "inset 0 0 0 2px #1d47b3",
+        "purpose": "Pending booking block on the shop calendar."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default curve: swipe, slip, scrim, button and tab transitions."
+      },
+      {
+        "name": "ease-thud",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "The stamp landing."
+      },
+      {
+        "name": "swipe",
+        "value": "240ms ease-out; clip-path inset(0 100% 0 0) to inset(0 0 0 0)",
+        "purpose": "Highlighter stroke drawn left to right on selection."
+      },
+      {
+        "name": "thud",
+        "value": "180ms ease-thud; scale 1.7 to 1, opacity 0 to 0.9, tilt held",
+        "purpose": "Stamp lands when the viewer just changed a status."
+      },
+      {
+        "name": "slip-in",
+        "value": "320ms ease-out; from translateX(40px) rotate(1.5deg), opacity 0",
+        "purpose": "Booking slip and drawers settle in from the right."
+      },
+      {
+        "name": "slip-up",
+        "value": "320ms ease-out; from translateY(48px), opacity 0",
+        "purpose": "Phone bottom-sheet slip (640px and below)."
+      },
+      {
+        "name": "fade",
+        "value": "200ms ease-out; from opacity 0",
+        "purpose": "Scrim behind slips."
+      },
+      {
+        "name": "control",
+        "value": "160ms ease-out; background-color, color, transform",
+        "purpose": "Button hover: black fill and 1px lift."
+      },
+      {
+        "name": "tab-lift",
+        "value": "200ms ease-out; translateY(-6px)",
+        "purpose": "Flyer tear-off tab hover."
+      },
+      {
+        "name": "block-lift",
+        "value": "140ms ease-out; translateY(-1px)",
+        "purpose": "Calendar booking block hover."
+      },
+      {
+        "name": "settle",
+        "value": "400ms ease-out; opacity, transform; leaves 1400ms after the stamp",
+        "purpose": "A request slip leaving the pile once stamped."
+      },
+      {
+        "name": "spin",
+        "value": "900ms linear infinite",
+        "purpose": "Loading spinner."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation and transition durations 1ms",
+        "purpose": "prefers-reduced-motion: reduce collapses everything."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack-pairs",
+        "value": "520px",
+        "purpose": "Two-column form grids stack."
+      },
+      {
+        "name": "phone",
+        "value": "640px",
+        "purpose": "Slip becomes a bottom sheet; timetable compacts (138px shop column, 760px min)."
+      },
+      {
+        "name": "booking-rows",
+        "value": "680px",
+        "purpose": "My bookings rows wrap date and actions."
+      },
+      {
+        "name": "header",
+        "value": "720px",
+        "purpose": "Header hides For shops and the account name."
+      },
+      {
+        "name": "request-slips",
+        "value": "760px",
+        "purpose": "Request slips stack."
+      },
+      {
+        "name": "lifecycle",
+        "value": "860px",
+        "purpose": "Lifecycle steps and sign-in stack."
+      },
+      {
+        "name": "dashboard",
+        "value": "900px",
+        "purpose": "Dashboard rail moves to the top; title block stacks; dashboard form columns stack."
+      },
+      {
+        "name": "shop-page",
+        "value": "960px",
+        "purpose": "Price list stacks above the week timetable."
+      },
+      {
+        "name": "front-aside",
+        "value": "1100px",
+        "purpose": "Your slips and the flyer drop under the board."
+      },
+      {
+        "name": "container",
+        "value": "1440px",
+        "purpose": "Max content width."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Toner-black action with expanded caps; the slip footer and main actions.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Book this time <svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 24px; border: 2px solid var(--ink); border-radius: var(--radius); font-family: var(--font-display); font-stretch: 115%; font-weight: 800; font-size: 0.875rem; letter-spacing: 0.02em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out); } .ds-btn-primary svg { width: 18px; height: 18px; } .ds-btn-primary:active { transform: translateY(0); } .ds-btn-primary:focus-visible { outline: 3px solid var(--hl-yellow); outline-offset: 2px; box-shadow: 0 0 0 2px var(--ink); } .ds-btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; } .ds-btn-primary { background: var(--ink); color: var(--paper); } .ds-btn-primary:hover { background: #000; transform: translateY(-1px); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action outlined in ink; fills with highlighter yellow on hover.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Change time</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 24px; border: 2px solid var(--ink); border-radius: var(--radius); font-family: var(--font-display); font-stretch: 115%; font-weight: 800; font-size: 0.875rem; letter-spacing: 0.02em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out); } .ds-btn-ghost svg { width: 18px; height: 18px; } .ds-btn-ghost:active { transform: translateY(0); } .ds-btn-ghost:focus-visible { outline: 3px solid var(--hl-yellow); outline-offset: 2px; box-shadow: 0 0 0 2px var(--ink); } .ds-btn-ghost:disabled { opacity: 0.45; cursor: not-allowed; transform: none; } .ds-btn-ghost { background: transparent; color: var(--ink); } .ds-btn-ghost:hover { background: var(--hl-yellow); transform: translateY(-1px); }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Decline or confirm a cancellation; Declined Red outline that fills red on hover.",
+      "html": "<button class=\"ds-btn-danger\" type=\"button\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/></svg> Decline</button>",
+      "css": ".ds-btn-danger { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 24px; border: 2px solid var(--ink); border-radius: var(--radius); font-family: var(--font-display); font-stretch: 115%; font-weight: 800; font-size: 0.875rem; letter-spacing: 0.02em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), transform 160ms var(--ease-out); } .ds-btn-danger svg { width: 18px; height: 18px; } .ds-btn-danger:active { transform: translateY(0); } .ds-btn-danger:focus-visible { outline: 3px solid var(--hl-yellow); outline-offset: 2px; box-shadow: 0 0 0 2px var(--ink); } .ds-btn-danger:disabled { opacity: 0.45; cursor: not-allowed; transform: none; } .ds-btn-danger { background: transparent; color: var(--ink-red); border-color: var(--ink-red); } .ds-btn-danger:hover { background: var(--ink-red); color: var(--paper); transform: translateY(-1px); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard 44px field with a 1.5px ink border; focus highlights the field yellow.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Price (GH₵)</span><input class=\"ds-input\" type=\"text\" value=\"40\"><span class=\"ds-field__hint\">Paid at the shop.</span></label>",
+      "css": ".ds-field { display: grid; gap: 6px; max-width: 320px; font-family: var(--font-body); color: var(--ink); } .ds-field__label { font-weight: 700; font-size: 0.875rem; } .ds-field__hint { font-size: 0.8125rem; color: var(--ink-3); } .ds-input { width: 100%; min-height: 44px; padding: 10px 12px; border: 1.5px solid var(--ink); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; font-size: 1rem; font-variant-numeric: tabular-nums; } .ds-input:hover { background: var(--paper-2); } .ds-input:focus, .ds-input:focus-visible { outline: none; background: #fffde0; box-shadow: 0 0 0 3px var(--hl-yellow); }"
+    },
+    {
+      "name": "Choice Chips",
+      "kind": "chip",
+      "refersTo": "choice",
+      "description": "Bordered options for day, staff and service settings; the selected one gets a flat highlighter fill.",
+      "html": "<div class=\"ds-choices\" role=\"group\" aria-label=\"Day\"><button class=\"ds-choice\" type=\"button\" aria-pressed=\"true\">Today</button><button class=\"ds-choice\" type=\"button\" aria-pressed=\"false\">Tomorrow</button><button class=\"ds-choice\" type=\"button\" aria-pressed=\"false\">Sat 21 Nov</button></div>",
+      "css": ".ds-choices { display: flex; flex-wrap: wrap; gap: 8px; } .ds-choice { display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border: 1.5px solid var(--ink); border-radius: var(--radius); background: var(--paper); color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 0.875rem; cursor: pointer; } .ds-choice:hover { background: var(--paper-2); } .ds-choice[aria-pressed='true'] { background: var(--hl-yellow); } .ds-choice:focus-visible { outline: 3px solid var(--hl-yellow); outline-offset: 2px; box-shadow: 0 0 0 2px var(--ink); }"
+    },
+    {
+      "name": "Shop-type Tags",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Highlighter-coded shop types with a line icon: blue barber, pink salon, green laundry, orange printing.",
+      "html": "<div class=\"ds-tags\"><span class=\"ds-tag ds-tag--blue\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"3\"/><path d=\"M8.12 8.12 12 12\"/><path d=\"M20 4 8.12 15.88\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M14.8 14.8 20 20\"/></svg>Barber</span><span class=\"ds-tag ds-tag--pink\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08\"/><path d=\"M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z\"/></svg>Salon</span><span class=\"ds-tag ds-tag--green\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h3\"/><path d=\"M17 6h.01\"/><rect width=\"18\" height=\"20\" x=\"3\" y=\"2\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"5\"/><path d=\"M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5\"/></svg>Laundry</span><span class=\"ds-tag ds-tag--orange\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\"/><path d=\"M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6\"/><rect x=\"6\" y=\"14\" width=\"12\" height=\"8\" rx=\"1\"/></svg>Printing</span></div>",
+      "css": ".ds-tags { display: flex; flex-wrap: wrap; gap: 8px; } .ds-tag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 7px 4px; border-radius: 1px; color: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 0.8125rem; line-height: 1; white-space: nowrap; } .ds-tag svg { width: 14px; height: 14px; } .ds-tag--blue { background: var(--hl-blue); } .ds-tag--pink { background: var(--hl-pink); } .ds-tag--green { background: var(--hl-green); } .ds-tag--orange { background: var(--hl-orange); }"
+    },
+    {
+      "name": "Status Stamp",
+      "kind": "custom",
+      "refersTo": "stamp-confirmed",
+      "description": "Office-stamp status in its ink: double border, speckled ink, multiply, tilted; thuds in when just changed.",
+      "html": "<div class=\"ds-stamps\"><span class=\"ds-stamp ds-stamp--blue\" role=\"img\" aria-label=\"Status: Waiting for the shop to approve\">Received<small>held for 2 hours</small></span><span class=\"ds-stamp ds-stamp--violet ds-stamp--thud\" role=\"img\" aria-label=\"Status: Confirmed by the shop\" style=\"--stamp-tilt:-8deg\">Confirmed</span><span class=\"ds-stamp ds-stamp--red\" role=\"img\" aria-label=\"Status: The shop declined this request\" style=\"--stamp-tilt:-4deg\">Declined</span></div>",
+      "css": ".ds-stamps { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; padding: 16px; background: var(--paper); } .ds-stamp { --stamp: var(--ink-violet); display: inline-flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 12px 5px; border: 3px double var(--stamp); border-radius: 4px; color: var(--stamp); font-family: var(--font-display); font-stretch: 112%; font-weight: 900; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.05; transform: rotate(var(--stamp-tilt, -5deg)); opacity: 0.9; mix-blend-mode: multiply; white-space: nowrap; -webkit-mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 2.05'/%3E%3C/filter%3E%3Crect width='120' height='60' filter='url(%23s)'/%3E%3C/svg%3E\"); mask-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 2.05'/%3E%3C/filter%3E%3Crect width='120' height='60' filter='url(%23s)'/%3E%3C/svg%3E\"); } .ds-stamp small { font-family: var(--font-body); font-stretch: 100%; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; } .ds-stamp--blue { --stamp: var(--ink-blue); } .ds-stamp--violet { --stamp: var(--ink-violet); } .ds-stamp--red { --stamp: var(--ink-red); } .ds-stamp--thud { animation: ds-thud 180ms var(--ease-thud) both; } @keyframes ds-thud { from { opacity: 0; transform: rotate(var(--stamp-tilt, -5deg)) scale(1.7); } to { opacity: 0.9; transform: rotate(var(--stamp-tilt, -5deg)) scale(1); } }"
+    },
+    {
+      "name": "Timetable",
+      "kind": "custom",
+      "refersTo": "timetable-cell",
+      "description": "The board: toner-ruled grid, sticky shop column, open cells you highlight; red minutes when few starts are left.",
+      "html": "<div class=\"ds-tt-scroll\"><table class=\"ds-tt\"><thead><tr><th scope=\"col\" class=\"ds-tt__shop\">Shop</th><th scope=\"col\">10am</th><th scope=\"col\">11am</th><th scope=\"col\">12pm</th></tr></thead><tbody><tr><th scope=\"row\" class=\"ds-tt__shop\"><span class=\"ds-tt__name\">Sharp Lines Barbering</span><span class=\"ds-tt__sub\"><span class=\"ds-tt__tag\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"6\" r=\"3\"/><path d=\"M8.12 8.12 12 12\"/><path d=\"M20 4 8.12 15.88\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M14.8 14.8 20 20\"/></svg></span>Haircut · GH₵35</span></th><td><span class=\"ds-cell ds-cell--full\">full</span></td><td><button type=\"button\" class=\"ds-cell ds-cell--open\" aria-pressed=\"true\"><span class=\"ds-hl__stroke\" aria-hidden=\"true\"></span>free</button></td><td><button type=\"button\" class=\"ds-cell ds-cell--open ds-cell--few\" aria-pressed=\"false\">:45</button></td></tr></tbody></table></div>",
+      "css": ".ds-tt-scroll { overflow-x: auto; border: 2px solid var(--rule); background: var(--paper); font-family: var(--font-body); font-variant-numeric: tabular-nums; } .ds-tt { width: 100%; min-width: 420px; border-collapse: collapse; table-layout: fixed; color: var(--ink); } .ds-tt th, .ds-tt td { border: 2px solid var(--rule); padding: 0; vertical-align: middle; } .ds-tt tr > :first-child { border-left: 0; } .ds-tt tr > :last-child { border-right: 0; } .ds-tt thead th { border-top: 0; height: 40px; font-size: 0.8125rem; font-weight: 800; text-align: center; background: var(--paper-2); border-bottom-width: 2px; } .ds-tt tbody tr:last-child > * { border-bottom: 0; } .ds-tt .ds-tt__shop { width: 190px; text-align: left; padding: 10px 12px; border-right-width: 2px; position: sticky; left: 0; background: var(--paper); } .ds-tt thead .ds-tt__shop { background: var(--paper-2); } .ds-tt__name { display: block; font-weight: 800; font-size: 0.875rem; line-height: 1.25; } .ds-tt__sub { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 0.8125rem; font-weight: 400; color: var(--ink-3); } .ds-tt__tag { display: inline-flex; padding: 3px 4px; background: var(--hl-blue); color: var(--ink); border-radius: 1px; } .ds-tt__tag svg { width: 14px; height: 14px; } .ds-cell { position: relative; isolation: isolate; display: grid; place-items: center; width: 100%; height: 58px; border: 0; background: transparent; font-family: inherit; font-size: 0.875rem; } .ds-cell--open { cursor: pointer; font-weight: 700; color: var(--ink-2); } .ds-cell--open:hover { background: var(--hl-wash); color: var(--ink); } .ds-cell--open[aria-pressed='true'] { color: var(--ink); } .ds-cell--open:focus-visible { outline: 3px solid var(--hl-yellow); outline-offset: 2px; box-shadow: 0 0 0 2px var(--ink); } .ds-cell--few { color: var(--ink-red); font-weight: 800; } .ds-cell--full { color: var(--ink-3); background: var(--paper-2); font-size: 0.8125rem; } .ds-cell .ds-hl__stroke { position: absolute; inset: 18% 8% 16% 8%; z-index: -1; background: var(--hl-yellow); mix-blend-mode: multiply; border-radius: 1px 3px 2px 4px; transform: skewX(-6deg) rotate(-0.8deg); animation: ds-swipe 240ms var(--ease-out) both; } @keyframes ds-swipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }"
+    },
+    {
+      "name": "Pinned Sheet",
+      "kind": "card",
+      "refersTo": "sheet",
+      "description": "Photocopy-white sheet pinned to the felt with a slight tilt; title block closed by a 3px toner rule.",
+      "html": "<div class=\"ds-board\"><article class=\"ds-sheet\"><svg class=\"ds-pin\" viewBox=\"0 0 20 20\" style=\"left:18%\" aria-hidden=\"true\"><circle cx=\"10\" cy=\"10\" r=\"8\" fill=\"var(--pin)\"/><circle cx=\"10\" cy=\"10\" r=\"8\" fill=\"url(#ds-pin-shade)\"/><ellipse cx=\"7.4\" cy=\"6.8\" rx=\"2.6\" ry=\"1.8\" fill=\"#fff\" opacity=\"0.55\"/><defs><radialGradient id=\"ds-pin-shade\" cx=\"0.35\" cy=\"0.3\" r=\"0.8\"><stop offset=\"0.5\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#000\" stop-opacity=\"0.35\"/></radialGradient></defs></svg><svg class=\"ds-pin\" viewBox=\"0 0 20 20\" style=\"left:82%\" aria-hidden=\"true\"><circle cx=\"10\" cy=\"10\" r=\"8\" fill=\"#2f6fd6\"/><circle cx=\"10\" cy=\"10\" r=\"8\" fill=\"url(#ds-pin-shade)\"/><ellipse cx=\"7.4\" cy=\"6.8\" rx=\"2.6\" ry=\"1.8\" fill=\"#fff\" opacity=\"0.55\"/><defs><radialGradient id=\"ds-pin-shade\" cx=\"0.35\" cy=\"0.3\" r=\"0.8\"><stop offset=\"0.5\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#000\" stop-opacity=\"0.35\"/></radialGradient></defs></svg><div class=\"ds-sheet__title\"><h2 class=\"ds-notice\">Campus shops<br>Open slots</h2><p class=\"ds-lede\">Barbers, salons, laundry and print shops on one timetable. Highlight a <span class=\"ds-hl\"><span class=\"ds-hl__stroke\" aria-hidden=\"true\"></span>free</span> slot to book it, then walk in without the queue.</p></div></article></div>",
+      "css": ".ds-board { padding: 32px 24px; background: var(--felt); } .ds-sheet { position: relative; max-width: 560px; padding: clamp(16px, 2.6vw, 32px); background: var(--paper); color: var(--ink); border-radius: var(--radius); box-shadow: var(--sheet-shadow); transform: rotate(-0.35deg); font-family: var(--font-body); } .ds-pin { position: absolute; top: -9px; width: 20px; height: 20px; margin-left: -10px; filter: drop-shadow(1px 3px 2px rgb(0 0 0 / 0.35)); } .ds-sheet__title { display: grid; gap: 16px; padding-bottom: 24px; border-bottom: 3px solid var(--rule); } .ds-notice { margin: 0; font-family: var(--font-display); font-stretch: 125%; font-weight: 850; font-size: 2.25rem; line-height: 0.98; letter-spacing: -0.01em; text-transform: uppercase; max-width: 14ch; } .ds-lede { margin: 0; font-size: 1.125rem; line-height: 1.55; color: var(--ink-2); max-width: 60ch; } .ds-hl { position: relative; isolation: isolate; } .ds-hl__stroke { position: absolute; inset: 14% -3px 10% -3px; z-index: -1; pointer-events: none; background: var(--hl-yellow); mix-blend-mode: multiply; border-radius: 1px 3px 2px 4px; transform: skewX(-6deg) rotate(-0.8deg); animation: ds-swipe 240ms var(--ease-out) both; } @keyframes ds-swipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }"
+    },
+    {
+      "name": "Site Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Slim header on felt: wordmark with its highlighted In, bold chalk links, current page underlined in highlighter.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-wordmark\" href=\"#\">Walk<span class=\"ds-wordmark__in\">In</span></a><nav class=\"ds-nav\" aria-label=\"Main\"><a href=\"#\" aria-current=\"page\">Board</a><a href=\"#\">My bookings</a><a href=\"#\">For shops</a><a href=\"#\">Sign in</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; padding: 0 24px; background: var(--felt); color: var(--on-felt); font-family: var(--font-body); } .ds-wordmark { display: inline-flex; align-items: baseline; font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: 1.5rem; letter-spacing: -0.02em; color: var(--on-felt); text-decoration: none; } .ds-wordmark__in { position: relative; margin-left: 1px; padding: 0 3px; color: var(--ink); isolation: isolate; } .ds-wordmark__in::before { content: ''; position: absolute; inset: 12% -2px 6% -2px; background: var(--hl-yellow); transform: skewX(-8deg) rotate(-1.5deg); z-index: -1; } .ds-nav { display: flex; align-items: center; gap: clamp(12px, 2vw, 24px); } .ds-nav a { position: relative; padding: 8px 0; color: var(--on-felt); font-weight: 700; font-size: 0.875rem; text-decoration: none; white-space: nowrap; } .ds-nav a[aria-current='page']::after, .ds-nav a:hover::after { content: ''; position: absolute; left: -2px; right: -2px; bottom: 3px; height: 5px; background: var(--hl-yellow); opacity: 0.85; transform: skewX(-12deg); } .ds-nav a:focus-visible, .ds-wordmark:focus-visible { outline: 3px solid var(--hl-yellow); outline-offset: 2px; box-shadow: 0 0 0 2px var(--ink); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Hall Notice Board",
+    "overview": "WalkIn is the photocopied timetable pinned to a campus hall notice board. Availability is drawn the way every student already reads a course timetable: shops as rows, hours as columns, open cells you can mark. The ground is deep green felt from edge to edge. Everything a visitor reads sits on photocopy-white sheets held up by pushpins, each sheet set at a slight tilt and ruled in heavy toner black. You mark the slot you want with a fluorescent highlighter, the same way you mark your own courses. The shop's answer comes back as a rubber stamp in office ink.\n\nDensity matches a real timetable. Cell text is compact (13 to 14px) with tabular figures, rows are 58px, the shop column stays put, and on a phone the grid scrolls sideways under it. The display type is loud: expanded black Archivo caps, like a notice header run off on the department copier. Everything else is typed in Arimo, the Arial voice every printed notice is written in.\n\nThe world splits by mode. Persuade and customer surfaces (the board, shop page, my bookings, sign-in) are sheets pinned to felt. The shop dashboard is a working desk: a felt rail on the left and one flat, untilted paper work area. It uses ordinary controls (fields, segmented controls, data tables, drawers), and the world reaches them only through toner rules, highlighters and stamps. The system rejects the booking-app default of a search hero over a grid of photo cards. There are no photographs; availability is the picture.",
+    "keyCharacteristics": [
+      "Felt-green ground with a fine fractal-noise nap, and paper sheets pinned on top with soft, downward paper shadows.",
+      "Toner-black rules, never hairlines: 3px closes a title block, 2px frames and divides every customer sheet.",
+      "Five fluorescent highlighters: yellow marks what is yours, and blue, pink, green and orange code the shop types.",
+      "Office-stamp inks carry booking status, with a speckled double border, multiply blend and a tilt.",
+      "Archivo expanded caps for notices, Arimo for everything typed. No third face.",
+      "Motion grammar: a highlighter swipe for selection, a stamp thud for a status change, a slip that slides in and settles like paper."
+    ],
+    "rules": [
+      {
+        "name": "The Yellow Is Yours Rule",
+        "body": "Highlighter Yellow means \"yours, or chosen right now\": the selected cell, day, time or option, the current page, the focused control, and a booked slot. It is never decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Highlighter-Behind-Ink Rule",
+        "body": "On paper, highlighters are fills under ink text, multiplied into the sheet. They are never set as text colour on paper.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stamp Ink Rule",
+        "body": "A booking status word is always a stamp in its ink: blue Received, violet Confirmed and In progress, green Ready, red Declined, Expired and Cancelled, black Done.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Typefaces Rule",
+        "body": "Things that are posted or stamped use Archivo expanded caps: notice headings, buttons, stamps and big times. Everything typed is Arimo.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Figures are tabular everywhere (the body sets them), so times, prices and counts line up in columns.",
+        "section": "typography"
+      },
+      {
+        "name": "The Pinned Sheet Rule",
+        "body": "Customer surfaces put their content on paper sheets pinned to the felt. Only the header, section notices, short captions, the crumb and the footer sit directly on felt, and they are set in Chalk.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Desk Rule",
+        "body": "The dashboard work area is one untilted paper surface with no pins. The board's ornament stops at the rail.",
+        "section": "layout"
+      },
+      {
+        "name": "The Paper Lifts, Nothing Else Rule",
+        "body": "Shadows describe paper lifted off the board and nothing else. Buttons, fields, tables and stamps are flat, and depth inside a sheet comes from rules and grey fills.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Toner Weight Rule",
+        "body": "Structure is drawn in toner black at three weights: 3px to close a title block, 2px to frame and divide on every customer sheet; the dashboard's dense tables and calendar columns divide at 1px. Pencil Grey is only for perforations, tear lines, empty-state outlines and the calendar's hour ticks.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do set every customer surface on Notice-Board Felt, with content on pinned Photocopy White sheets: Sheet shadow, 2px radius, a tilt within ±1.6°, and within ±0.4° for large sheets.",
+      "Do draw structure in toner black: 3px to close a title block, 2px for frames and interior lines on customer sheets (1px only inside the dashboard's dense tables).",
+      "Do mark the viewer's choice with Highlighter Yellow: a 240ms ease-out swipe on cells, days and times, a flat yellow fill on choices, and a yellow bar under the current nav link or tab.",
+      "Do code shop types with their highlighter and line icon (blue barber, pink salon, green laundry, orange printing) as a tag, legend swatch or row marker.",
+      "Do say a booking's status with a stamp in its ink, with a plain-language accessible label, and thud it (180ms) only when the viewer's own action has just changed it.",
+      "Do keep Operate surfaces on standard controls: 44px fields with 1.5px ink borders, choices, segmented controls, data tables and drawers. The world reaches them only through rules, highlighters and stamps.",
+      "Do let wide tables scroll inside their own frame with a sticky first column, so the page never widens.",
+      "Do collapse all animation and transition to 1ms under prefers-reduced-motion."
+    ],
+    "donts": [
+      "Don't present availability as a search hero over photo cards; availability is a timetable grid of open cells.",
+      "Don't frame tables, sheets or columns in Pencil Grey; grey is for perforations, tear lines, empty-state outlines and hour ticks.",
+      "Don't set highlighter colours as text on paper; they are fills behind ink, multiplied.",
+      "Don't show a booking status word as a flat pill or coloured badge; a status word is a stamp.",
+      "Don't add ornament beyond the board's own: pushpins and tear-off tabs.",
+      "Don't give buttons, fields or tables a shadow, and don't give anything a hard offset shadow; only paper lifts.",
+      "Don't tilt the dashboard work area or individual controls; tilt belongs to whole sheets and stamps.",
+      "Don't add a third typeface or handwritten notes; they turn the board into a costume."
+    ]
+  }
+}

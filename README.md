@@ -84,6 +84,27 @@ npm run monitoring:setup # create log metrics, alert policies and email channel
 
 Emulator ports: Auth 9099, Firestore 8080, Functions 5001, Storage 9199, Pub/Sub 8085, UI 4000.
 
+### Web v2: the campus notice-board rebuild
+
+`apps/web-v2` is a full rebuild of the website (customer side and shop dashboard) on the same
+Cloud Functions, designed for a university campus in Ghana. Today's open slots across every shop
+read as one timetable; picking a slot is a highlighter swipe, and a shop's approval lands as a
+rubber stamp. Product context is in `PRODUCT.md`; the design direction is in
+`.impeccable/surfaces/web-v2.md` and `DESIGN.md`.
+
+```powershell
+npm run build:backend                     # shared schemas + functions bundle
+npm run emulators                         # leave running
+npm run emulator:seed:campus              # wipes the emulator Firestore, seeds 9 campus shops + bookings
+Copy-Item apps\web-v2\.env.example apps\web-v2\.env.local
+npm run dev:web-v2                        # http://localhost:3001
+```
+
+The sign-in page offers demo accounts in emulator mode (a student with bookings, a print-shop owner
+and a barber-shop owner). Every seeded shop, person and price is synthetic. Visitors browse on an
+anonymous session, so a deployed build needs Anonymous sign-in enabled in Firebase Auth; booking
+asks for an account and upgrades that session in place.
+
 ### Emulator verification gate
 
 With the emulators running, seed a demo provider and run the integration tests:
