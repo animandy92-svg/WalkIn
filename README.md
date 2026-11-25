@@ -84,9 +84,9 @@ npm run monitoring:setup # create log metrics, alert policies and email channel
 
 Emulator ports: Auth 9099, Firestore 8080, Functions 5001, Storage 9199, Pub/Sub 8085, UI 4000.
 
-### Web v2: BookLocal directory preview
+### Web v2: WalkIn directory preview
 
-The `apps/web-v2` home page presents the BookLocal service directory for Cape Coast and UCC, with
+The `apps/web-v2` home page presents the WalkIn service directory for Cape Coast and UCC, with
 search, category filters, provider cards, and a multi-step booking preview. The listed providers,
 prices, ratings, and availability are illustrative; preview bookings are stored in the browser and
 are not sent to providers. The partner application is also a front-end preview. Other booking,

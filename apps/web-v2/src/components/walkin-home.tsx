@@ -24,7 +24,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from 'react';
-import styles from './booklocal-home.module.css';
+import styles from './walkin-home.module.css';
 
 type CategoryId = 'barbers' | 'salons' | 'laundry' | 'printing' | 'other';
 type CategoryFilter = CategoryId | 'all';
@@ -258,7 +258,7 @@ function Dialog({
   );
 }
 
-export default function BookLocalHome() {
+export default function WalkInHome() {
   const dates = useMemo(upcomingDays, []);
   const [activeTab, setActiveTab] = useState<'explore' | 'bookings'>('explore');
   const [category, setCategory] = useState<CategoryFilter>('all');
@@ -307,7 +307,7 @@ export default function BookLocalHome() {
         setBookings(valid);
       }
     } catch (error) {
-      console.error('Unable to load saved BookLocal bookings.', error);
+      console.error('Unable to load saved WalkIn bookings.', error);
       setToast({ id: Date.now(), message: 'Saved bookings could not be loaded from this browser.', tone: 'error' });
     } finally {
       setStorageReady(true);
@@ -348,7 +348,7 @@ export default function BookLocalHome() {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     } catch (error) {
-      console.error('Unable to save BookLocal bookings.', error);
+      console.error('Unable to save WalkIn bookings.', error);
       notify('This browser could not save your booking. It will remain visible until you close this tab.', 'error');
     }
   }
@@ -453,7 +453,7 @@ export default function BookLocalHome() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <a className={styles.brand} href="/" aria-label="BookLocal home">
+          <a className={styles.brand} href="/" aria-label="WalkIn home">
             <span className={styles.brandMark}><CalendarDays size={21} aria-hidden="true" /></span>
             <span className={styles.brandText}>Book<span>Local</span><small>Cape Coast &amp; UCC</small></span>
           </a>
@@ -593,7 +593,7 @@ export default function BookLocalHome() {
       </main>
 
       <footer className={styles.footer}>
-        <div><strong>BookLocal</strong><span>·</span><span>Smart local appointment booking</span></div>
+        <div><strong>WalkIn</strong><span>·</span><span>Smart local appointment booking</span></div>
         <p>Queue passes for Cape Coast, UCC, Kotokuraba, Tantri &amp; Ola</p>
       </footer>
 
@@ -712,7 +712,7 @@ export default function BookLocalHome() {
 
       {businessOpen && (
         <Dialog titleId="business-dialog-title" onClose={() => setBusinessOpen(false)} className={styles.businessDialog}>
-          <div className={styles.businessHeader}><div><h2 id="business-dialog-title">Partner with BookLocal</h2><p>Accept advance bookings and manage customer queues</p></div><button type="button" onClick={() => setBusinessOpen(false)} aria-label="Close form"><X size={20} /></button></div>
+          <div className={styles.businessHeader}><div><h2 id="business-dialog-title">Partner with WalkIn</h2><p>Accept advance bookings and manage customer queues</p></div><button type="button" onClick={() => setBusinessOpen(false)} aria-label="Close form"><X size={20} /></button></div>
           <form className={styles.businessForm} onSubmit={submitBusinessForm}>
             <label>Business name<input required name="businessName" placeholder="e.g., Royal Cuts or SwiftPrint Hub" /></label>
             <div className={styles.formRow}><label>Category<select name="category" defaultValue="Barbershop"><option>Barbershop</option><option>Beauty Salon</option><option>Laundry &amp; Dryclean</option><option>Printing Shop</option><option>Tailoring &amp; Repairs</option></select></label><label>Neighborhood<input required name="neighborhood" placeholder="e.g., UCC, Tantri" /></label></div>
