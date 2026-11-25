@@ -39,9 +39,21 @@ let emulatorsConnected = false;
 function connectEmulators(): void {
   if (emulatorsConnected || !useEmulators) return;
   emulatorsConnected = true;
-  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
-  connectFunctionsEmulator(functions, '127.0.0.1', 5001);
-  connectStorageEmulator(storage, '127.0.0.1', 9199);
+  connectAuthEmulator(
+    auth,
+    process.env.NEXT_PUBLIC_AUTH_EMULATOR_URL ?? 'http://127.0.0.1:9099',
+    { disableWarnings: true },
+  );
+  connectFunctionsEmulator(
+    functions,
+    process.env.NEXT_PUBLIC_FUNCTIONS_EMULATOR_HOST ?? '127.0.0.1',
+    Number(process.env.NEXT_PUBLIC_FUNCTIONS_EMULATOR_PORT ?? 5001),
+  );
+  connectStorageEmulator(
+    storage,
+    process.env.NEXT_PUBLIC_STORAGE_EMULATOR_HOST ?? '127.0.0.1',
+    Number(process.env.NEXT_PUBLIC_STORAGE_EMULATOR_PORT ?? 9199),
+  );
 }
 
 connectEmulators();
