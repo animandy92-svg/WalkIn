@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Archivo, Arimo } from 'next/font/google';
-import { AuthProvider } from '@/lib/auth';
+import { AppProviders } from '@/components/app-providers';
 import './globals.css';
 import './pages.css';
 import './dashboard.css';
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GH" className={`${archivo.variable} ${arimo.variable}`}>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );
