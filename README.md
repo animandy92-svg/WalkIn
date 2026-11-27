@@ -29,6 +29,8 @@ The configured project is `walkin-123` (`.firebaserc`). The emulator uses a sepa
 
 For real deployments, confirm the project is on the Blaze plan and that Auth providers, App Check,
 and the desired Cloud Functions region (`us-central1` by default) are configured.
+Enable Firebase Authentication's **Anonymous** provider for guest browsing and booking on the
+website and mobile app. Email/password sign-in remains optional for customers.
 
 ### Deploy the web app with Firebase App Hosting
 

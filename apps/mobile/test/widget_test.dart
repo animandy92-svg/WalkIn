@@ -19,6 +19,7 @@ import 'package:walkin_mobile/features/provider/provider_screen.dart';
 import 'package:walkin_mobile/main.dart';
 
 const user = AppUser(uid: 'u1', email: 'customer@walkin.test');
+const guest = AppUser(uid: 'guest-1', email: '');
 
 final providerDetailsMap = <String, dynamic>{
   'provider': {
@@ -238,17 +239,18 @@ Widget buildTestApp({
 }
 
 void main() {
-  testWidgets('signed-out customers are prompted to sign in', (tester) async {
+  testWidgets('anonymous customers can browse without signing in', (tester) async {
     await tester.pumpWidget(buildTestApp(
       initialLocation: '/',
-      signedInUser: null,
+      signedInUser: guest,
       api: FakeApi(),
     ));
     await tester.pumpAndSettle();
 
     expect(find.text('Book a local service'), findsOneWidget);
-    expect(find.text('Sign in to browse'), findsOneWidget);
-    expect(find.text('Sign in or create an account'), findsOneWidget);
+    expect(find.text('Sunrise Studio'), findsOneWidget);
+    expect(find.text('Sign in to browse'), findsNothing);
+    expect(find.byTooltip('Sign in (optional)'), findsOneWidget);
   });
 
   testWidgets('published providers open their detail screen', (tester) async {
@@ -267,11 +269,11 @@ void main() {
     expect(find.text('Haircut'), findsOneWidget);
   });
 
-  testWidgets('a customer can pick a slot and book it', (tester) async {
+  testWidgets('an anonymous customer can pick a slot and book it', (tester) async {
     final api = FakeApi();
     await tester.pumpWidget(buildTestApp(
       initialLocation: '/providers/sunrise/services/s1',
-      signedInUser: user,
+      signedInUser: guest,
       api: api,
     ));
     await tester.pumpAndSettle();

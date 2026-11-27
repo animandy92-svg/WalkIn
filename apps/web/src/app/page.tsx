@@ -24,13 +24,14 @@ const VERTICAL_INFO: Record<BusinessVertical, { label: string; icon: string }> =
 };
 
 export default function HomePage() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, error: authError } = useAuth();
   const [providers, setProviders] = useState<ProviderSummaryView[]>([]);
   const [selectedVertical, setSelectedVertical] = useState<'all' | BusinessVertical>('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) {
       setLoading(false);
       return;
@@ -51,7 +52,7 @@ export default function HomePage() {
     return () => {
       active = false;
     };
-  }, [user]);
+  }, [authLoading, user]);
 
   const filteredProviders = useMemo(() => {
     if (selectedVertical === 'all') return providers;
@@ -65,33 +66,22 @@ export default function HomePage() {
         Skip the line. Reserve barbers, salons, laundry drop-offs, and print jobs ahead of time.
       </p>
 
-      {user ? (
-        <div className="filter-pills">
-          {VERTICAL_FILTERS.map((item) => (
-            <button
-              key={item.key}
-              type="button"
-              className={`filter-pill ${selectedVertical === item.key ? 'active' : ''}`}
-              onClick={() => setSelectedVertical(item.key)}
-            >
-              <span>{item.icon}</span> {item.label}
-            </button>
-          ))}
-        </div>
-      ) : null}
+      <div className="filter-pills">
+        {VERTICAL_FILTERS.map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            className={`filter-pill ${selectedVertical === item.key ? 'active' : ''}`}
+            onClick={() => setSelectedVertical(item.key)}
+          >
+            <span>{item.icon}</span> {item.label}
+          </button>
+        ))}
+      </div>
 
       {authLoading || loading ? <p>Loading providers…</p> : null}
+      {authError ? <p className="error">{authError}</p> : null}
       {error ? <p className="error">{error}</p> : null}
-
-      {!authLoading && !user ? (
-        <div className="panel">
-          <h2>Sign in to browse</h2>
-          <p className="muted">Customer accounts let you book and manage appointments.</p>
-          <div className="actions">
-            <Link className="primary" href="/sign-in">Sign in or create an account</Link>
-          </div>
-        </div>
-      ) : null}
 
       {filteredProviders.length > 0 ? (
         <div className="card-grid">
@@ -112,11 +102,11 @@ export default function HomePage() {
         </div>
       ) : null}
 
-      {!authLoading && user && !loading && providers.length === 0 && !error ? (
+      {!authLoading && !loading && providers.length === 0 && !error ? (
         <p className="muted">No providers are published yet.</p>
       ) : null}
 
-      {!authLoading && user && !loading && providers.length > 0 && filteredProviders.length === 0 ? (
+      {!authLoading && !loading && providers.length > 0 && filteredProviders.length === 0 ? (
         <p className="muted">No providers found in this category.</p>
       ) : null}
     </>

@@ -36,7 +36,7 @@ export default function ProviderPage() {
   }, [user, params.slug]);
 
   if (authLoading || loading) return <p>Loading provider…</p>;
-  if (!user) return <p>Please <Link href="/sign-in">sign in</Link> to view this provider.</p>;
+  if (!user) return <p>Provider details are unavailable until a guest session can be started.</p>;
   if (error) return <p className="error">{error}</p>;
   if (!details) return <p>Provider not found.</p>;
 

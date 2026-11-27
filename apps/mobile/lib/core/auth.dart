@@ -52,8 +52,15 @@ class FirebaseAuthController implements AuthController {
   }
 
   @override
-  Future<void> createAccount(String email, String password) {
-    return _auth.createUserWithEmailAndPassword(email: email, password: password);
+  Future<void> createAccount(String email, String password) async {
+    final user = _auth.currentUser;
+    if (user != null && user.isAnonymous) {
+      await user.linkWithCredential(
+        EmailAuthProvider.credential(email: email, password: password),
+      );
+      return;
+    }
+    await _auth.createUserWithEmailAndPassword(email: email, password: password);
   }
 
   @override
@@ -67,3 +74,5 @@ final authControllerProvider = Provider<AuthController>((ref) {
 final authStateProvider = StreamProvider<AppUser?>((ref) {
   return ref.watch(authControllerProvider).watchUser();
 });
+
+final authStartupErrorProvider = Provider<String?>((ref) => null);

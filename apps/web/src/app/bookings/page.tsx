@@ -127,7 +127,7 @@ export default function BookingsPage() {
   }
 
   if (authLoading || loading) return <p>Loading bookings…</p>;
-  if (!user) return <p>Please <Link href="/sign-in">sign in</Link> to see your bookings.</p>;
+  if (!user) return <p>Bookings are unavailable until a guest session can be started.</p>;
 
   return (
     <>

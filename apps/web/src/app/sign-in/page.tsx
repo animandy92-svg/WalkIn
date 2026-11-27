@@ -2,7 +2,12 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  EmailAuthProvider,
+  linkWithCredential,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
 export default function SignInPage() {
@@ -22,7 +27,12 @@ export default function SignInPage() {
       if (mode === 'signin') {
         await signInWithEmailAndPassword(auth, email, password);
       } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const currentUser = auth.currentUser;
+        if (currentUser?.isAnonymous) {
+          await linkWithCredential(currentUser, EmailAuthProvider.credential(email, password));
+        } else {
+          await createUserWithEmailAndPassword(auth, email, password);
+        }
       }
       const next = new URLSearchParams(window.location.search).get('next') ?? '/';
       router.push(next);

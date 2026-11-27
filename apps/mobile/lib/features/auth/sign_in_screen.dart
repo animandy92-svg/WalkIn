@@ -66,7 +66,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 8),
-            const Text('Sign in to browse providers and manage your bookings.'),
+            const Text('You can browse and book without an account. Sign in here if you prefer.'),
             const SizedBox(height: 24),
             TextField(
               controller: _emailController,

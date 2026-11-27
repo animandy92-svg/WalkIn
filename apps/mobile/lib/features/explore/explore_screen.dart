@@ -12,12 +12,18 @@ class ExploreScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final auth = ref.watch(authStateProvider);
+    final guestSessionError = ref.watch(authStartupErrorProvider);
     final providers = ref.watch(providersProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('WalkIn'),
         actions: [
+          IconButton(
+            tooltip: 'Sign in (optional)',
+            icon: const Icon(Icons.person_outline),
+            onPressed: () => context.go('/sign-in'),
+          ),
           IconButton(
             tooltip: 'Notifications',
             icon: const Icon(Icons.notifications_outlined),
@@ -38,31 +44,18 @@ class ExploreScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             const Text('Find a provider, choose a service, and reserve a time.'),
             const SizedBox(height: 24),
-            if (auth.isLoading || providers.isLoading)
-              const Center(child: CircularProgressIndicator()),
-            if (auth.value == null && !auth.isLoading)
+            if (guestSessionError != null)
               Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Sign in to browse',
-                          style: Theme.of(context).textTheme.titleLarge),
-                      const SizedBox(height: 8),
-                      const Text('Customer accounts let you book and manage appointments.'),
-                      const SizedBox(height: 16),
-                      FilledButton(
-                        onPressed: () => context.go('/sign-in'),
-                        child: const Text('Sign in or create an account'),
-                      ),
-                    ],
-                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Text(guestSessionError),
                 ),
               ),
+            if (auth.isLoading || providers.isLoading)
+              const Center(child: CircularProgressIndicator()),
             providers.when(
               data: (items) {
-                if (items.isEmpty && auth.value != null) {
+                if (items.isEmpty && !providers.isLoading) {
                   return const Text('No providers are published yet.');
                 }
                 return Column(
@@ -90,13 +83,6 @@ class ExploreScreen extends ConsumerWidget {
           ],
         ),
       ),
-      floatingActionButton: auth.value == null
-          ? null
-          : FloatingActionButton.extended(
-              onPressed: () => ref.read(authControllerProvider).signOut(),
-              icon: const Icon(Icons.logout),
-              label: const Text('Sign out'),
-            ),
     );
   }
 }

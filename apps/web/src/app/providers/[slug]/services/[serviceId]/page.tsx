@@ -157,10 +157,7 @@ export default function ServiceBookingPage() {
   }
 
   if (authLoading || loadingDetails) return <p>Loading service…</p>;
-  if (!user) {
-    const next = `/providers/${params.slug}/services/${params.serviceId}`;
-    return <p>Please <Link href={`/sign-in?next=${encodeURIComponent(next)}`}>sign in</Link> to book.</p>;
-  }
+  if (!user) return <p>Booking is unavailable until a guest session can be started.</p>;
   if (error && !confirmed) return <p className="error">{error}</p>;
   if (!details || !service) return <p>Service not found.</p>;
 

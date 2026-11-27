@@ -22,7 +22,7 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
   const pathname = usePathname();
 
   if (authLoading || accessLoading) return <p>Loading dashboard…</p>;
-  if (!user) {
+  if (!user || user.isAnonymous) {
     return (
       <p>
         Please <Link href="/sign-in?next=/dashboard">sign in</Link> to open the provider dashboard.
